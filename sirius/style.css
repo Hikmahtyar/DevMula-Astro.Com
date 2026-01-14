@@ -1,0 +1,363 @@
+/* ======================================================= */
+/* 1. VARIABEL WARNA & TEMA (OUMUAMUA EDITION)             */
+/* ======================================================= */
+
+:root {
+    /* Warna Dasar (Dark Mode Default) */
+    --bg-body: #050505;          /* Hitam Pekat */
+    --bg-nav: rgba(5, 5, 5, 0.85);
+    --bg-card: #121212;          /* Abu Sangat Gelap */
+    --bg-card-lighter: #1e1e1e;
+    
+    /* Typography */
+    --text-main: #e0e0e0;
+    --text-muted: #a0a0a0;
+    --border-color: rgba(255, 255, 255, 0.1);
+    
+    /* WARNA SPESIAL OUMUAMUA (Terracotta / Merah Bata) */
+    --accent-color: #55aee1; 
+    --accent-glow: rgba(225, 112, 85, 0.3);
+    
+    /* Efek Tambahan */
+    --fire-color: #3099d6;       /* Warna Meteor */
+}
+
+/* Konfigurasi Light Mode */
+body.light-mode {
+    --bg-body: #f5f6fa;
+    --bg-nav: rgba(245, 246, 250, 0.9);
+    --bg-card: #ffffff;
+    --bg-card-lighter: #f1f2f6;
+    --text-main: #2d3436;
+    --text-muted: #636e72;
+    --border-color: rgba(0, 0, 0, 0.1);
+}
+
+/* ======================================================= */
+/* 2. SETUP GLOBAL                                         */
+/* ======================================================= */
+
+* {
+    margin: 0; padding: 0; box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    line-height: 1.7; /* Jarak antar baris teks biar enak dibaca */
+    overflow-x: hidden;
+    transition: background-color 0.4s ease, color 0.3s ease;
+}
+
+a { text-decoration: none; transition: 0.3s; color: inherit; }
+ul { list-style: none; }
+
+/* Wrapper Utama agar tidak mepet pinggir */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 25px; 
+}
+
+/* ======================================================= */
+/* 3. NAVBAR (NAVIGASI ATAS)                               */
+/* ======================================================= */
+
+.article-navbar {
+    position: fixed; top: 0; left: 0; width: 100%;
+    padding: 15px 0;
+    background: var(--bg-nav);
+    backdrop-filter: blur(12px); /* Efek kaca buram */
+    z-index: 1000;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.navbar-flex {
+    display: flex; justify-content: space-between; align-items: center;
+}
+
+.navbar-logo-img {
+    height: 40px; width: auto;
+    filter: drop-shadow(0 0 5px var(--accent-glow));
+}
+
+.nav-right-group {
+    display: flex; gap: 10px; align-items: center;
+}
+
+/* Tombol-tombol di Navbar */
+.btn-theme-toggle, .btn-icon-nav {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    width: 40px; height: 40px;
+    border-radius: 50%; /* Bulat Sempurna */
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-theme-toggle:hover, .btn-icon-nav:hover {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    color: white;
+    transform: rotate(15deg);
+}
+
+.btn-ensiklopedia {
+    background: var(--bg-card-lighter);
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.85rem; font-weight: 700;
+    display: flex; align-items: center; gap: 8px;
+}
+
+.btn-ensiklopedia:hover {
+    background: var(--accent-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px var(--accent-glow);
+}
+
+/* ======================================================= */
+/* 4. HERO SECTION (JUDUL & GAMBAR)                        */
+/* ======================================================= */
+
+.hero-center {
+    padding-top: 120px; padding-bottom: 50px;
+    text-align: center;
+}
+
+.tag-category {
+    display: inline-block;
+    background: rgba(225, 112, 85, 0.15);
+    color: var(--accent-color);
+    border: 1px solid rgba(225, 112, 85, 0.3);
+    padding: 6px 16px; border-radius: 50px;
+    font-size: 0.75rem; font-weight: 800; letter-spacing: 1px;
+    margin-bottom: 20px; text-transform: uppercase;
+}
+
+.main-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2.5rem; line-height: 1.3;
+    margin-bottom: 30px;
+    background: linear-gradient(to right, var(--text-main), var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.meta-author-center {
+    display: flex; justify-content: center; align-items: center; gap: 15px;
+}
+.avatar-circle { width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--accent-color); }
+.author-name { display: block; font-weight: 700; font-size: 0.95rem; }
+.publish-date { font-size: 0.85rem; color: var(--text-muted); }
+
+.hero-image-wrapper { text-align: center; margin-bottom: 60px; }
+.hero-image-wrapper img {
+    width: 100%; max-width: 350px;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    border: 1px solid var(--border-color);
+}
+.caption-center {
+    margin-top: 15px; color: var(--text-muted);
+    font-size: 0.85rem; font-style: italic;
+}
+
+/* ======================================================= */
+/* 5. ISI KONTEN (TIPOGRAFI & BOX)                         */
+/* ======================================================= */
+
+.content-limit {
+    max-width: 750px; margin: 0 auto;
+    padding: 0 20px; /* Biar lega di HP */
+}
+
+/* Paragraf Pembuka */
+.lead-paragraph {
+    font-size: 1.15rem;
+    border-left: 4px solid var(--accent-color);
+    padding-left: 20px; margin-bottom: 40px;
+    color: var(--text-main);
+}
+
+h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.7rem; margin-top: 50px; margin-bottom: 20px;
+    color: var(--text-main); position: relative;
+}
+
+p, li { margin-bottom: 18px; color: var(--text-main); font-size: 1rem; }
+
+/* Daftar Isi Box */
+.table-of-contents {
+    background: var(--bg-card);
+    padding: 30px; border-radius: 15px;
+    border: 1px solid var(--border-color);
+    margin-bottom: 40px;
+}
+.table-of-contents h4 { margin-bottom: 15px; color: var(--accent-color); }
+.table-of-contents ul { padding-left: 0; }
+.table-of-contents li { list-style: none; margin-bottom: 10px; border-bottom: 1px dashed var(--border-color); padding-bottom: 5px; }
+.table-of-contents a:hover { color: var(--accent-color); padding-left: 5px; }
+
+/* Fact Box (Data Spesial) */
+.fact-box {
+    background: rgba(225, 112, 85, 0.08); /* Transparan Merah */
+    padding: 30px; border-radius: 15px;
+    border-left: 5px solid var(--accent-color);
+    margin: 40px 0;
+}
+.fact-box h4 { margin-top: 0; color: var(--accent-color); margin-bottom: 15px; }
+.fact-box ul { padding-left: 20px; }
+.fact-box li { list-style: disc; margin-bottom: 8px; }
+
+/* Tips Box */
+.tips-box {
+    background: var(--bg-card-lighter);
+    padding: 20px; border-radius: 12px;
+    display: flex; gap: 20px; align-items: flex-start;
+    border: 1px solid var(--border-color);
+}
+.tips-icon i { font-size: 1.5rem; color: var(--accent-color); margin-top: 5px; }
+
+/* REFERENSI BOX (DESAIN BARU) */
+/* --- REFERENSI BOX (UPDATE BIAR DI TENGAH) --- */
+.references-box {
+    margin-top: 60px;
+    background: var(--bg-card);
+    padding: 30px; 
+    border-radius: 15px; 
+    border: 1px solid var(--border-color);
+    
+    /* INI KUNCI AGAR DI TENGAH & TIDAK PANJANG: */
+    max-width: 500px;       /* Batasi lebarnya (biar gak full layar) */
+    margin-left: auto;      /* Dorong otomatis dari kiri */
+    margin-right: auto;     /* Dorong otomatis dari kanan */
+    text-align: center;     /* Judul "Referensi" jadi di tengah */
+}
+
+.references-box h5 {
+    color: var(--text-muted); 
+    text-transform: uppercase; 
+    letter-spacing: 1px;
+    margin-bottom: 20px; 
+    font-size: 0.9rem; 
+    border-bottom: 2px solid var(--accent-color);
+    display: inline-block; 
+    padding-bottom: 5px;
+}
+
+.references-box ul { 
+    padding: 0; 
+    text-align: left; /* Kembalikan list jadi rata kiri biar rapi */
+}
+
+.references-box li { 
+    list-style: none; 
+    margin-bottom: 12px; 
+}
+
+.references-box a {
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+    color: var(--text-main);
+    font-weight: 500; 
+    padding: 10px 15px; 
+    border-radius: 8px;
+    background: var(--bg-card-lighter); 
+    transition: 0.3s;
+}
+
+.references-box a:hover { 
+    background: var(--accent-color); 
+    color: #fff; /* Pastikan teks jadi putih/kontras saat hover */
+    transform: translateX(5px); 
+}
+
+.references-box i { 
+    font-size: 0.8rem; 
+    opacity: 0.7; 
+}
+
+/* Garis Pemisah */
+.divider-line { border: 0; height: 1px; background: var(--border-color); margin: 50px 0; }
+
+/* ======================================================= */
+/* 6. FOOTER & PROMO                                       */
+/* ======================================================= */
+
+.author-promo-section {
+    margin-top: 80px; padding: 60px 0;
+    background: var(--bg-card);
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+}
+.promo-card-dark { max-width: 600px; margin: 0 auto; }
+.promo-label {
+    background: var(--accent-color); color: white;
+    padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: bold;
+}
+.promo-card-dark h2 { margin: 15px 0; color: var(--text-main); }
+.btn-cta-primary {
+    display: inline-block; margin-top: 20px;
+    background: var(--text-main); color: var(--bg-body);
+    padding: 12px 30px; border-radius: 50px; font-weight: bold;
+}
+.btn-cta-primary:hover {
+    background: var(--accent-color); color: white;
+}
+
+.footer-simple {
+    text-align: center; padding: 30px; font-size: 0.9rem; color: var(--text-muted);
+}
+
+/* ======================================================= */
+/* 7. ANIMASI & UTILITIES                                  */
+/* ======================================================= */
+
+/* Progress Bar Membaca */
+.reading-progress-bar {
+    position: fixed; top: 0; left: 0; height: 3px;
+    background: var(--accent-color);
+    z-index: 2000; width: 0%; box-shadow: 0 0 10px var(--accent-color);
+}
+
+/* Meteor Merah */
+.meteor-projectile {
+    position: fixed; top: -100px; width: 2px; height: 60px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), var(--fire-color));
+    z-index: 9999; pointer-events: none;
+    box-shadow: 0 0 15px var(--fire-color);
+    animation: meteorFall 0.8s linear forwards;
+}
+@keyframes meteorFall {
+    0% { transform: translateY(-100px) translateX(0); opacity: 1; }
+    100% { transform: translateY(110vh) translateX(-100px); opacity: 0; }
+}
+
+/* ======================================================= */
+/* 8. RESPONSIF (HP / LAYAR KECIL)                         */
+/* ======================================================= */
+
+@media (max-width: 768px) {
+    .main-title { font-size: 2rem; }
+    .hero-center { padding-top: 100px; }
+    .content-limit { padding: 0 25px; } /* Jarak aman pinggir */
+    
+    .text-hide-mobile { display: none; } /* Sembunyikan teks 'Ensiklopedia' di HP */
+    .btn-ensiklopedia {
+        width: 40px; height: 40px; padding: 0;
+        justify-content: center; border-radius: 50%;
+    }
+    
+    .tips-box { flex-direction: column; gap: 10px; }
+    .fact-box { padding: 20px; }
+}

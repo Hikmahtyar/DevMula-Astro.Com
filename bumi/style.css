@@ -1,0 +1,240 @@
+/* ======================================================= */
+/* CSS BUMI (CLEAN & FAST VERSION)                         */
+/* ======================================================= */
+
+:root {
+    /* --- TEMA BINTANG (DARK MODE - STATIC) --- */
+    --bg-body: #020617; 
+    --space-gradient: linear-gradient(to bottom, #020617, #0c2461); 
+
+    /* --- WARNA UI --- */
+    --bg-nav: rgba(2, 6, 23, 0.95); /* Lebih solid agar tidak berat */
+    --bg-card: rgba(15, 23, 42, 0.95);
+    --bg-card-lighter: #1E293B;
+    
+    --text-main: #E2E8F0;
+    --text-muted: #94A3B8;
+    --border-color: rgba(255,255,255,0.1);
+    
+    /* WARNA SPESIAL BUMI */
+    --accent-color: #0984e3; 
+    --accent-glow: rgba(9, 132, 227, 0.3);
+    
+    /* METEOR */
+    --fire-color-head: #ffffff;
+    --fire-color-tail: #00cec9;
+    --fact-box-bg: rgba(9, 132, 227, 0.1);
+}
+
+body.light-mode {
+    --bg-body: #f0f8ff;
+    --space-gradient: linear-gradient(to bottom, #f0f8ff, #dfe6e9);
+    --bg-nav: rgba(240, 248, 255, 0.95);
+    --bg-card: rgba(255, 255, 255, 0.95);
+    --bg-card-lighter: #eefbff; 
+    --text-main: #1E293B;
+    --text-muted: #64748B;
+    --border-color: rgba(0,0,0,0.1);
+    --fact-box-bg: rgba(9, 132, 227, 0.08);
+    --fire-color-tail: #74b9ff; 
+}
+
+/* GLOBAL SETUP */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background: var(--space-gradient);
+    color: var(--text-main);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    line-height: 1.7;
+    overflow-x: hidden;
+    min-height: 100vh;
+    transition: background 0.6s ease-in-out, color 0.6s ease-in-out;
+}
+
+/* Transisi Halus */
+.article-navbar, .table-of-contents, .references-box, .fact-box, .tips-box,
+.author-promo-section, .btn-theme-toggle, .btn-icon-nav, .btn-ensiklopedia {
+    transition: background 0.6s ease-in-out, border-color 0.6s ease-in-out, color 0.6s ease-in-out, box-shadow 0.6s ease;
+}
+
+a { text-decoration: none; transition: 0.3s; color: inherit; }
+ul { list-style: none; }
+.container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 25px; }
+
+/* NAVBAR */
+.article-navbar {
+    position: fixed; top: 0; left: 0; width: 100%; padding: 15px 0;
+    background: var(--bg-nav); 
+    backdrop-filter: blur(10px); /* Akan dimatikan di HP via Media Query bawah */
+    z-index: 1000;
+    border-bottom: 1px solid var(--border-color);
+}
+.navbar-flex { display: flex; justify-content: space-between; align-items: center; }
+.navbar-logo-img { height: 40px; width: auto; filter: drop-shadow(0 0 5px var(--accent-glow)); }
+.nav-right-group { display: flex; gap: 10px; align-items: center; }
+
+.btn-theme-toggle, .btn-icon-nav {
+    background: transparent; border: 1px solid var(--border-color);
+    color: var(--text-main); width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.3s;
+}
+.btn-theme-toggle:hover, .btn-icon-nav:hover {
+    background: var(--accent-color); border-color: var(--accent-color); color: #fff; 
+}
+
+.btn-ensiklopedia {
+    background: var(--bg-card-lighter); color: var(--accent-color);
+    border: 1px solid var(--accent-color); padding: 8px 20px; border-radius: 50px;
+    font-size: 0.85rem; font-weight: 700; display: flex; align-items: center; gap: 8px;
+}
+.btn-ensiklopedia:hover {
+    background: var(--accent-color); color: #fff;
+    transform: translateY(-2px); box-shadow: 0 5px 15px var(--accent-glow);
+}
+
+/* HERO SECTION */
+.hero-center { padding-top: 120px; padding-bottom: 50px; text-align: center; }
+
+.tag-category {
+    display: inline-block; background: rgba(9, 132, 227, 0.2);
+    color: var(--accent-color); border: 1px solid rgba(9, 132, 227, 0.3);
+    padding: 6px 16px; border-radius: 50px; font-size: 0.75rem; font-weight: 800;
+    letter-spacing: 1px; margin-bottom: 20px; text-transform: uppercase;
+}
+
+.main-title {
+    font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; line-height: 1.3;
+    margin-bottom: 30px;
+    background: linear-gradient(to right, #74b9ff, var(--accent-color));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.meta-author-center { display: flex; justify-content: center; align-items: center; gap: 15px; }
+.avatar-circle { width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--accent-color); }
+.author-name { display: block; font-weight: 700; font-size: 0.95rem; }
+.publish-date { font-size: 0.85rem; color: var(--text-muted); }
+
+.hero-image-wrapper { text-align: center; margin-bottom: 60px; }
+.hero-image-wrapper img {
+    width: 100%; max-width: 350px; height: 350px; object-fit: cover;
+    border-radius: 20px; box-shadow: 0 10px 40px rgba(9, 132, 227, 0.2); 
+    border: 1px solid var(--border-color);
+}
+.caption-center { margin-top: 15px; color: var(--text-muted); font-size: 0.85rem; font-style: italic; }
+
+/* CONTENT */
+.content-limit { max-width: 750px; margin: 0 auto; padding: 0 20px; }
+
+.lead-paragraph {
+    font-size: 1.15rem; border-left: 4px solid var(--accent-color);
+    padding-left: 20px; margin-bottom: 40px; color: var(--text-main);
+    background: linear-gradient(to right, var(--fact-box-bg), transparent);
+    padding: 20px; border-radius: 0 10px 10px 0;
+}
+
+h3 {
+    font-family: 'Space Grotesk', sans-serif; font-size: 1.7rem;
+    margin-top: 50px; margin-bottom: 20px; color: var(--text-main);
+}
+p, li { margin-bottom: 18px; color: var(--text-main); font-size: 1rem; }
+
+/* BOXES */
+.table-of-contents, .references-box, .fact-box, .author-promo-section {
+    background: var(--bg-card); border: 1px solid var(--border-color);
+}
+
+.table-of-contents { padding: 30px; border-radius: 15px; margin-bottom: 40px; }
+.table-of-contents h4 { margin-bottom: 15px; color: var(--accent-color); }
+.table-of-contents ul { padding-left: 0; }
+.table-of-contents li { list-style: none; margin-bottom: 10px; border-bottom: 1px dashed var(--border-color); padding-bottom: 5px; }
+.table-of-contents a:hover { color: var(--accent-color); padding-left: 5px; }
+
+.fact-box { padding: 30px; border-radius: 15px; border-left: 5px solid var(--accent-color); margin: 40px 0; background: var(--fact-box-bg); }
+.fact-box h4 { margin-top: 0; color: var(--accent-color); margin-bottom: 15px; }
+.fact-box ul { padding-left: 20px; }
+.fact-box li { list-style: disc; margin-bottom: 8px; }
+
+.tips-box {
+    background: var(--bg-card-lighter); border-left: 4px solid #0984e3;
+    padding: 20px; margin: 20px 0; border-radius: 8px;
+    display: flex; gap: 20px; align-items: flex-start;
+}
+.tips-icon i { font-size: 1.5rem; color: #0984e3; margin-top: 5px; }
+
+.references-box {
+    margin-top: 60px; padding: 30px; border-radius: 15px; 
+    max-width: 500px; margin-left: auto; margin-right: auto; text-align: center;
+}
+.references-box h5 {
+    color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;
+    margin-bottom: 20px; font-size: 0.9rem; border-bottom: 2px solid var(--accent-color);
+    display: inline-block; padding-bottom: 5px;
+}
+.references-box ul { padding: 0; text-align: left; }
+.references-box li { list-style: none; margin-bottom: 12px; }
+.references-box a {
+    display: flex; align-items: center; gap: 10px; color: var(--text-main);
+    font-weight: 500; padding: 10px 15px; border-radius: 8px;
+    background: var(--bg-card-lighter); transition: 0.3s;
+}
+.references-box a:hover { background: var(--accent-color); color: #fff; transform: translateX(5px); }
+.references-box i { font-size: 0.8rem; opacity: 0.7; }
+
+.divider-line { border: 0; height: 1px; background: var(--border-color); margin: 50px 0; }
+
+.author-promo-section { margin-top: 80px; padding: 60px 0; text-align: center; }
+.promo-label { background: var(--accent-color); color: #fff; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; }
+.promo-card-dark h2 { margin: 15px 0; color: var(--text-main); }
+.btn-cta-primary {
+    display: inline-block; margin-top: 20px; background: var(--text-main);
+    color: var(--bg-body); padding: 12px 30px; border-radius: 50px; font-weight: bold;
+}
+.btn-cta-primary:hover { background: var(--accent-color); color: #fff; }
+
+.footer-simple { text-align: center; padding: 30px; font-size: 0.9rem; color: var(--text-muted); }
+
+/* ANIMASI METEOR (TETAP ADA) */
+.reading-progress-bar {
+    position: fixed; top: 0; left: 0; height: 3px;
+    background: var(--accent-color); z-index: 2000; width: 0%;
+    box-shadow: 0 0 10px var(--accent-glow);
+}
+
+.meteor-projectile {
+    position: fixed; top: -150px; width: 4px; height: 180px;
+    background: linear-gradient(to bottom, var(--fire-color-head), var(--fire-color-tail), transparent);
+    z-index: 9999; pointer-events: none; border-radius: 50% 50% 0 0;
+    box-shadow: 0 0 20px var(--fire-color-tail); opacity: 0;
+    animation: meteorDramaticFall linear forwards;
+}
+.meteor-projectile::before {
+    content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 8px; height: 15px; background: var(--fire-color-head); border-radius: 50%;
+    box-shadow: 0 0 15px var(--fire-color-head), 0 0 30px var(--fire-color-head);
+}
+
+@keyframes meteorDramaticFall {
+    0% { transform: translateY(0) translateX(0) rotate(-15deg); opacity: 1; }
+    100% { transform: translateY(130vh) translateX(-300px) rotate(-15deg); opacity: 0; }
+}
+
+/* ======================================================= */
+/* OPTIMASI HP (PENTING! INI YANG BIKIN RINGAN)            */
+/* ======================================================= */
+@media (max-width: 768px) {
+    .main-title { font-size: 2rem; }
+    .hero-center { padding-top: 100px; }
+    .content-limit { padding: 0 25px; }
+    .text-hide-mobile { display: none; }
+    .btn-ensiklopedia { width: 40px; height: 40px; padding: 0; justify-content: center; border-radius: 50%; }
+    .tips-box { flex-direction: column; gap: 10px; }
+    .fact-box { padding: 20px; }
+    .meteor-projectile { width: 3px; height: 120px; }
+    
+    /* MATIKAN EFEK BLUR (KACA) DI HP */
+    .article-navbar, .table-of-contents, .references-box, .fact-box, .tips-box, .author-promo-section {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+}
