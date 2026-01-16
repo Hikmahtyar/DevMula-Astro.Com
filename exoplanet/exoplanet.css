@@ -163,3 +163,34 @@ body {
     .hud-header h1 { font-size: 2rem; letter-spacing: 2px; }
     .container { grid-template-columns: 1fr; }
 }
+
+/* =========================================
+   FIX MOBILE NAVBAR (Agar Tidak Tembus)
+   ========================================= */
+
+@media (max-width: 768px) {
+    /* 1. Atur Ulang Padding Navbar agar lebih lega */
+    .hud-nav {
+        padding: 10px 15px; /* Padding lebih kecil */
+        gap: 10px; /* Jarak antar elemen */
+    }
+
+    /* 2. Kecilkan Tombol "Kembali" */
+    .back-btn {
+        font-size: 0.7rem; /* Font lebih kecil */
+        padding: 6px 12px; /* Kotak lebih ramping */
+        letter-spacing: 1px;
+        white-space: nowrap; /* Mencegah teks turun baris */
+    }
+
+    /* 3. Sembunyikan Tulisan "SYSTEM: ONLINE" di HP */
+    /* Ini penting agar tombol Kembali punya ruang dan tidak ketabrak */
+    .nav-center {
+        display: none; 
+    }
+    
+    /* 4. Pastikan Icon Satelit di Kanan Tetap Ada */
+    .nav-right {
+        font-size: 0.9rem;
+    }
+}

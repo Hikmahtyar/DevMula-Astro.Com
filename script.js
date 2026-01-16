@@ -271,3 +271,74 @@ function finishGame() {
     if(finalScore) finalScore.innerText = score;
     showView('result');
 }
+
+/* =========================================
+   5. MODE SIANG / MALAM & EFEK METEOR 🌓
+   ========================================= */
+
+// Ambil elemen tombol dan body
+const themeToggle = document.getElementById('theme-toggle');
+const body = document.body;
+const icon = themeToggle ? themeToggle.querySelector('i') : null;
+
+// Cek LocalStorage saat website baru dibuka (biar ingat pilihan user)
+if (localStorage.getItem('theme') === 'light') {
+    enableLightMode();
+}
+
+// Event Listener saat tombol ditekan
+if(themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        // Efek tambahan: Hujan Meteor saat ganti tema
+        createMeteorShower();
+        
+        // Cek kondisi sekarang, lalu tukar
+        if (body.classList.contains('light-mode')) {
+            disableLightMode();
+        } else {
+            enableLightMode();
+        }
+    });
+}
+
+// Fungsi Aktifkan Mode Terang
+function enableLightMode() {
+    body.classList.add('light-mode');
+    if(icon) {
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun'); // Ganti ikon jadi Matahari
+    }
+    localStorage.setItem('theme', 'light'); // Simpan ke memori browser
+}
+
+// Fungsi Matikan Mode Terang (Balik ke Gelap)
+function disableLightMode() {
+    body.classList.remove('light-mode');
+    if(icon) {
+        icon.classList.remove('fa-sun');
+        icon.classList.add('fa-moon'); // Ganti ikon jadi Bulan
+    }
+    localStorage.setItem('theme', 'dark');
+}
+
+// Fungsi Bonus: Efek Meteor Jatuh
+function createMeteorShower() {
+    for (let i = 0; i < 15; i++) {
+        setTimeout(() => {
+            const meteor = document.createElement('div');
+            meteor.classList.add('meteor');
+            meteor.style.left = Math.random() * 100 + 'vw';
+            meteor.style.animationDuration = (Math.random() * 0.5 + 0.5) + 's';
+            
+            // Warna-warni meteor
+            const colors = ['#ff6b6b', '#ffffff', '#74b9ff'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            meteor.style.background = `linear-gradient(to bottom, transparent, ${randomColor})`;
+            
+            document.body.appendChild(meteor);
+            
+            // Hapus meteor setelah animasi selesai biar gak berat
+            setTimeout(() => { meteor.remove(); }, 1000);
+        }, i * 100);
+    }
+}
