@@ -1,0 +1,165 @@
+/* =========================================
+   GAYA INTERSTELLAR HUD (Sci-Fi Theme)
+   ========================================= */
+:root {
+    --neon-green: #00ff41;
+    --neon-cyan: #00f3ff;
+    --neon-red: #ff003c;
+    --neon-yellow: #fcee0a;
+    --bg-dark: #050505;
+    --glass: rgba(10, 20, 30, 0.7);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background-color: var(--bg-dark);
+    font-family: 'Rajdhani', sans-serif;
+    color: #fff;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* --- ANIMATED BACKGROUND --- */
+.stars, .twinkling {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: block;
+}
+.stars {
+    background: #000 url('http://www.script-tutorials.com/demos/360/images/stars.png') repeat top center;
+    z-index: -2;
+}
+.twinkling {
+    background: transparent url('http://www.script-tutorials.com/demos/360/images/twinkling.png') repeat top center;
+    z-index: -1; animation: move-twink-back 200s linear infinite; opacity: 0.5;
+}
+@keyframes move-twink-back { from {background-position:0 0;} to {background-position:-10000px 5000px;} }
+
+/* Efek Garis TV Jadul (Scanlines) */
+.scanlines {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2));
+    background-size: 100% 4px; z-index: 999; pointer-events: none; opacity: 0.3;
+}
+
+/* --- NAVBAR HUD --- */
+.hud-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 5%; border-bottom: 1px solid rgba(0, 243, 255, 0.3);
+    background: rgba(0,0,0,0.8); backdrop-filter: blur(5px);
+    position: sticky; top: 0; z-index: 100;
+}
+.back-btn {
+    text-decoration: none; color: var(--neon-cyan); font-weight: bold;
+    font-family: 'Orbitron'; font-size: 0.9rem; letter-spacing: 2px;
+    border: 1px solid var(--neon-cyan); padding: 8px 15px; transition: 0.3s;
+}
+.back-btn:hover { background: var(--neon-cyan); color: #000; box-shadow: 0 0 15px var(--neon-cyan); }
+.system-status {
+    color: var(--neon-green); font-family: 'Orbitron'; letter-spacing: 3px; font-size: 0.8rem;
+    animation: blink 2s infinite;
+}
+.pulse-icon { color: var(--neon-red); animation: pulse 1s infinite; }
+
+/* --- HERO SECTION --- */
+.hud-header { text-align: center; padding: 50px 20px; position: relative; }
+.hud-header h1 {
+    font-family: 'Orbitron'; font-size: 3.5rem; letter-spacing: 10px;
+    color: #fff; text-shadow: 0 0 20px var(--neon-cyan);
+    margin-bottom: 10px;
+}
+.subtitle { color: var(--neon-green); font-size: 1.2rem; letter-spacing: 5px; }
+.divider-line {
+    height: 2px; width: 150px; background: var(--neon-cyan);
+    margin: 20px auto; box-shadow: 0 0 10px var(--neon-cyan);
+}
+
+/* --- GRID SYSTEM --- */
+.container {
+    max-width: 1200px; margin: 0 auto; padding: 20px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+/* --- HUD CARD DESIGN (SANGAT CANGGIH) --- */
+.hud-card {
+    background: var(--glass);
+    border: 1px solid rgba(255,255,255,0.1);
+    position: relative; overflow: hidden;
+    transition: 0.3s;
+    /* Efek sudut terpotong ala sci-fi */
+    clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
+}
+.hud-card::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    border: 1px solid transparent; 
+    border-top-color: var(--neon-cyan); border-bottom-color: var(--neon-cyan);
+    opacity: 0.3; transition: 0.3s; pointer-events: none;
+}
+
+/* Warna Border Berdasarkan Tipe */
+.hud-card.safe:hover { border-color: var(--neon-green); box-shadow: 0 0 30px rgba(0, 255, 65, 0.2); }
+.hud-card.danger:hover { border-color: var(--neon-red); box-shadow: 0 0 30px rgba(255, 0, 60, 0.2); }
+.hud-card.rich:hover { border-color: var(--neon-yellow); box-shadow: 0 0 30px rgba(252, 238, 10, 0.2); }
+
+/* Header Kartu */
+.card-header {
+    display: flex; justify-content: space-between; padding: 15px;
+    border-bottom: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.3);
+}
+.code { font-family: 'Orbitron'; color: #888; font-size: 0.8rem; }
+.badge {
+    font-size: 0.7rem; font-weight: bold; padding: 2px 8px; border: 1px solid #fff;
+    color: #fff; letter-spacing: 1px;
+}
+.badge.warning { border-color: var(--neon-red); color: var(--neon-red); }
+
+/* Gambar Planet */
+.planet-visual { position: relative; height: 200px; overflow: hidden; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.planet-visual img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; filter: grayscale(40%); }
+.hud-card:hover .planet-visual img { transform: scale(1.1); filter: grayscale(0%); }
+.scan-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 5px;
+    background: rgba(0, 243, 255, 0.5); box-shadow: 0 0 10px var(--neon-cyan);
+    animation: scan 3s linear infinite; opacity: 0;
+}
+.hud-card:hover .scan-overlay { opacity: 1; }
+
+/* Isi Kartu */
+.card-body { padding: 20px; }
+.card-body h3 { font-family: 'Orbitron'; font-size: 1.5rem; margin-bottom: 5px; color: #fff; }
+.card-body p { color: #aaa; font-size: 0.9rem; margin-bottom: 15px; line-height: 1.4; }
+
+/* Data Grid (Kotak Data Kecil) */
+.data-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5px;
+    margin-bottom: 20px;
+}
+.data-item {
+    background: rgba(255,255,255,0.05); padding: 8px; text-align: center;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+.data-item small { display: block; font-size: 0.6rem; color: #666; text-transform: uppercase; }
+.data-item strong { display: block; font-size: 0.9rem; color: var(--neon-cyan); font-family: 'Orbitron'; }
+
+/* Meteran */
+.meter-box { background: rgba(0,0,0,0.3); padding: 10px; border: 1px solid rgba(255,255,255,0.1); }
+.meter-label { display: flex; justify-content: space-between; font-size: 0.7rem; margin-bottom: 5px; color: #888; }
+.progress-bar { width: 100%; height: 8px; background: #333; position: relative; overflow: hidden; }
+.fill { height: 100%; }
+.fill.green { background: var(--neon-green); box-shadow: 0 0 10px var(--neon-green); }
+.fill.red { background: var(--neon-red); box-shadow: 0 0 10px var(--neon-red); }
+.fill.yellow { background: var(--neon-yellow); box-shadow: 0 0 10px var(--neon-yellow); }
+
+/* Footer */
+.hud-footer { text-align: center; padding: 40px; color: #444; font-size: 0.8rem; letter-spacing: 2px; }
+
+/* --- KEYFRAMES --- */
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+@keyframes pulse { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(1.5); opacity: 0; } }
+@keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+
+/* Mobile */
+@media (max-width: 768px) {
+    .hud-header h1 { font-size: 2rem; letter-spacing: 2px; }
+    .container { grid-template-columns: 1fr; }
+}

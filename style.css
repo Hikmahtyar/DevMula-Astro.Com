@@ -503,3 +503,82 @@ body.light-mode .main-title {
 
 @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+
+
+/* =========================================
+   TOMBOL ALIEN (VERSI TERPISAH)
+   ========================================= */
+
+/* 1. Wadah Khusus Tombol Alien */
+.alien-wrapper {
+    display: flex;
+    justify-content: center; /* Pasti Rata Tengah */
+    width: 100%;
+    margin-top: 20px; /* Jarak Jauh dari Warp Drive */
+    margin-bottom: 20px;
+}
+
+/* 2. Desain Tombol Alien (Neon Radar) */
+.alien-btn-solo {
+    position: relative;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 12px 35px; /* Sedikit lebih lebar */
+    background: rgba(0, 255, 65, 0.05); /* Transparan Hijau */
+    border: 1px solid #00ff41; /* Hijau Neon */
+    color: #00ff41;
+    border-radius: 50px;
+    text-decoration: none;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: bold;
+    letter-spacing: 1px;
+    overflow: hidden;
+    transition: 0.3s;
+    
+    /* Animasi Melayang Pelan */
+    animation: alienFloat 3s ease-in-out infinite;
+}
+
+/* Efek Hover */
+.alien-btn-solo:hover {
+    background: #00ff41;
+    color: #000;
+    box-shadow: 0 0 25px rgba(0, 255, 65, 0.6);
+    transform: translateY(-5px) scale(1.05);
+}
+
+/* 3. Animasi Radar (Ping) */
+.radar-ping {
+    width: 8px; height: 8px;
+    background-color: #00ff41;
+    border-radius: 50%;
+    position: relative;
+}
+.alien-btn-solo:hover .radar-ping { background-color: #000; }
+
+/* Gelombang Radar */
+.radar-ping::after {
+    content: '';
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    border: 2px solid #00ff41;
+    animation: radarWave 1.5s infinite ease-out;
+}
+
+/* Keyframes Animasi */
+@keyframes radarWave {
+    0% { width: 10px; height: 10px; opacity: 1; }
+    100% { width: 40px; height: 40px; opacity: 0; }
+}
+
+@keyframes alienFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+/* Mobile Fix */
+@media (max-width: 480px) {
+    .alien-wrapper { margin-top: 15px; }
+    .alien-btn-solo { font-size: 0.9rem; padding: 10px 25px; }
+}

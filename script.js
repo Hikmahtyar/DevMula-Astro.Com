@@ -1,8 +1,8 @@
 /* =========================================
-   LOGIKA UTAMA ENSIKLOPEDIA (SCRIPT.JS)
+   ENSIKLOPEDIA SEMESTA - MAIN LOGIC
    ========================================= */
 
-// 1. SYSTEM FILTER KATEGORI
+// --- 1. SYSTEM FILTER KATEGORI ---
 function filterObjects(category) {
     const cards = document.querySelectorAll('.card');
     const buttons = document.querySelectorAll('.filter-btn');
@@ -14,8 +14,9 @@ function filterObjects(category) {
     // Update Tombol Active
     buttons.forEach(btn => {
         btn.classList.remove('active');
-        const btnCategory = btn.getAttribute('onclick');
-        if (btnCategory.includes(`'${category}'`)) {
+        // Cek onclick attribute untuk mencocokkan kategori
+        const btnOnclick = btn.getAttribute('onclick');
+        if (btnOnclick && btnOnclick.includes(`'${category}'`)) {
             btn.classList.add('active');
         }
     });
@@ -26,10 +27,9 @@ function filterObjects(category) {
         let shouldShow = false;
 
         if (category === 'all') {
-            // Tampilkan semua kecuali berita
+            // Tampilkan semua kecuali berita (opsional, tergantung preferensi)
             if (cardCat !== 'berita') shouldShow = true;
         } else {
-            // Tampilkan sesuai kategori
             if (cardCat === category) shouldShow = true;
         }
 
@@ -45,15 +45,17 @@ function filterObjects(category) {
     });
 }
 
-// 2. SYSTEM PENCARIAN (LIVE SEARCH)
+// --- 2. SYSTEM PENCARIAN (LIVE SEARCH) ---
 function searchObjects() {
     const input = document.getElementById('searchInput').value.toLowerCase();
     const cards = document.querySelectorAll('.card');
     const buttons = document.querySelectorAll('.filter-btn');
 
+    // Matikan highlight tombol filter saat mencari
     if (input.length > 0) {
         buttons.forEach(btn => btn.classList.remove('active'));
     } else {
+        // Kembalikan ke 'Semua' jika kosong
         const allBtn = document.querySelector(".filter-btn[onclick=\"filterObjects('all')\"]");
         if(allBtn) allBtn.classList.add('active');
     }
@@ -70,83 +72,12 @@ function searchObjects() {
     });
 }
 
-// 3. TEMA (DARK/LIGHT) & EFEK METEOR
-const themeToggle = document.getElementById('theme-toggle');
-const body = document.body;
-const icon = themeToggle ? themeToggle.querySelector('i') : null;
-
-// Cek LocalStorage saat load
-if (localStorage.getItem('theme') === 'light') {
-    enableLightMode();
-}
-
-if(themeToggle) {
-    themeToggle.addEventListener('click', () => {
-        createMeteorShower();
-        if (body.classList.contains('light-mode')) {
-            disableLightMode();
-        } else {
-            enableLightMode();
-        }
-    });
-}
-
-function enableLightMode() {
-    body.classList.add('light-mode');
-    if(icon) {
-        icon.classList.remove('fa-moon');
-        icon.classList.add('fa-sun');
-    }
-    localStorage.setItem('theme', 'light');
-}
-
-function disableLightMode() {
-    body.classList.remove('light-mode');
-    if(icon) {
-        icon.classList.remove('fa-sun');
-        icon.classList.add('fa-moon');
-    }
-    localStorage.setItem('theme', 'dark');
-}
-
-function createMeteorShower() {
-    for (let i = 0; i < 15; i++) {
-        setTimeout(() => {
-            const meteor = document.createElement('div');
-            meteor.classList.add('meteor');
-            meteor.style.left = Math.random() * 100 + 'vw';
-            meteor.style.animationDuration = (Math.random() * 0.5 + 0.5) + 's';
-            
-            const colors = ['#ff6b6b', '#ffffff', '#74b9ff'];
-            const randomColor = colors[Math.floor(Math.random() * colors.length)];
-            meteor.style.background = `linear-gradient(to bottom, transparent, ${randomColor})`;
-            
-            document.body.appendChild(meteor);
-            setTimeout(() => { meteor.remove(); }, 1000);
-        }, i * 100);
-    }
-}
-
-// 4. LINK HANDLER (PESAN BELUM TERSEDIA)
-document.addEventListener('DOMContentLoaded', () => {
-    const allCards = document.querySelectorAll('.card');
-    allCards.forEach(card => {
-        card.addEventListener('click', function(e) {
-            const link = this.getAttribute('href');
-            if (link === '#' || link === '' || link === null) {
-                e.preventDefault();
-                alert("🚀 Maaf, data objek ini sedang disusun oleh tim DevMula Astro. Coba cek objek lain ya!");
-            }
-        });
-    });
-});
-
-// 5. WARP DRIVE SYSTEM (DENGAN FIX BACK BUTTON)
+// --- 3. WARP DRIVE SYSTEM (FIXED) 🚀 ---
 function activateWarpDrive() {
     const allCards = document.querySelectorAll('.card');
     const validLinks = [];
 
-    // Cari link yang valid
+    // Cari link yang valid dari kartu yang ada
     allCards.forEach(card => {
         const link = card.getAttribute('href');
         // Pastikan link bukan #, kosong, atau javascript void
@@ -160,37 +91,39 @@ function activateWarpDrive() {
         return;
     }
 
+    // Pilih destinasi acak
     const randomDest = validLinks[Math.floor(Math.random() * validLinks.length)];
     const overlay = document.getElementById('warp-overlay');
     
+    // Aktifkan Efek Layar Hitam
     if(overlay) {
-        overlay.classList.add('active'); // Nyalakan layar hitam
+        overlay.classList.add('active'); 
         
+        // Pindah halaman setelah 1.5 detik (tunggu animasi selesai)
         setTimeout(() => {
             window.location.href = randomDest;
         }, 1500);
+    } else {
+        // Fallback jika overlay tidak ada di HTML
+        window.location.href = randomDest;
     }
 }
 
-/* ====================================================
-   🔥 FIX PENTING: MENGATASI TOMBOL BACK DI HP 🔥
-   Fungsi ini akan dijalankan setiap kali halaman tampil,
-   termasuk saat user menekan tombol Back dari history.
-   ==================================================== */
+// --- 4. ANTI-STUCK BACK BUTTON FIX ---
+// Mematikan layar hitam saat user menekan tombol Back di HP
 window.addEventListener('pageshow', function(event) {
     const overlay = document.getElementById('warp-overlay');
-    
-    // Jika overlay ditemukan, PAKSA matikan kelas 'active'
     if (overlay) {
         overlay.classList.remove('active');
     }
 });
 
+
 /* =========================================
    LOGIKA SYSTEM KUIS (ALIEN EDITION) 👽
    ========================================= */
 
-// Bank Soal Lengkap (15 Soal)
+// Bank Soal Lengkap
 const fullQuizData = [
     { q: "Apa nama galaksi tetangga terdekat Bima Sakti?", options: ["Andromeda", "Triangulum", "Sombrero", "Whirlpool"], answer: 0 },
     { q: "Planet mana yang dijuluki 'Bintang Kejora'?", options: ["Mars", "Jupiter", "Venus", "Saturnus"], answer: 2 },
@@ -213,7 +146,7 @@ const fullQuizData = [
 let gameQuestions = [];
 let currentQIndex = 0;
 let score = 0;
-let lives = 3; // Nyawa awal
+let lives = 3; 
 let isGameOver = false;
 
 // Selectors
@@ -229,32 +162,34 @@ const scoreDisplay = document.getElementById('score-display');
 const livesDisplay = document.getElementById('lives-display');
 const finalScore = document.getElementById('final-score');
 
-// 1. FUNGSI BUKA TUTUP
+// FUNGSI BUKA TUTUP KUIS
 function openQuiz() {
-    overlay.classList.add('active');
-    showView('start'); // Selalu mulai dari Start Screen
+    if(overlay) {
+        overlay.classList.add('active');
+        showView('start');
+    }
 }
 
 function closeQuiz() {
-    overlay.classList.remove('active');
+    if(overlay) overlay.classList.remove('active');
 }
 
-// 2. LOGIKA PINDAH LAYAR
+// LOGIKA PINDAH LAYAR
 function showView(viewName) {
     // Sembunyikan semua view
-    viewStart.classList.add('hidden');
-    viewGame.classList.add('hidden');
-    viewResult.classList.add('hidden');
-    viewAlien.classList.add('hidden');
+    if(viewStart) viewStart.classList.add('hidden');
+    if(viewGame) viewGame.classList.add('hidden');
+    if(viewResult) viewResult.classList.add('hidden');
+    if(viewAlien) viewAlien.classList.add('hidden');
 
     // Munculkan yang diminta
-    if(viewName === 'start') viewStart.classList.remove('hidden');
-    if(viewName === 'game') viewGame.classList.remove('hidden');
-    if(viewName === 'result') viewResult.classList.remove('hidden');
-    if(viewName === 'alien') viewAlien.classList.remove('hidden');
+    if(viewName === 'start' && viewStart) viewStart.classList.remove('hidden');
+    if(viewName === 'game' && viewGame) viewGame.classList.remove('hidden');
+    if(viewName === 'result' && viewResult) viewResult.classList.remove('hidden');
+    if(viewName === 'alien' && viewAlien) viewAlien.classList.remove('hidden');
 }
 
-// 3. MULAI GAME (RESET & SHUFFLE)
+// MULAI GAME
 function startQuizGame() {
     score = 0;
     lives = 3;
@@ -262,45 +197,41 @@ function startQuizGame() {
     isGameOver = false;
     updateStats();
 
-    // Acak Soal (Fisher-Yates Shuffle)
-    gameQuestions = [...fullQuizData].sort(() => Math.random() - 0.5);
-    // Ambil 10 soal saja per sesi biar ga kepanjangan (Opsional)
-    gameQuestions = gameQuestions.slice(0, 10); 
-
+    // Acak Soal
+    gameQuestions = [...fullQuizData].sort(() => Math.random() - 0.5).slice(0, 10); 
     showView('game');
     loadQuestion();
 }
 
-// 4. LOAD PERTANYAAN
+// LOAD PERTANYAAN
 function loadQuestion() {
     if (currentQIndex >= gameQuestions.length) {
-        finishGame(); // Soal habis, menang
+        finishGame(); 
         return;
     }
 
     const currentData = gameQuestions[currentQIndex];
-    qText.innerText = `${currentQIndex + 1}. ${currentData.q}`;
-    optContainer.innerHTML = '';
-
-    currentData.options.forEach((opt, index) => {
-        const btn = document.createElement('button');
-        btn.innerText = opt;
-        btn.classList.add('btn-option');
-        btn.onclick = () => checkAnswer(index, currentData.answer, btn);
-        optContainer.appendChild(btn);
-    });
+    if(qText) qText.innerText = `${currentQIndex + 1}. ${currentData.q}`;
+    if(optContainer) {
+        optContainer.innerHTML = '';
+        currentData.options.forEach((opt, index) => {
+            const btn = document.createElement('button');
+            btn.innerText = opt;
+            btn.classList.add('btn-option');
+            btn.onclick = () => checkAnswer(index, currentData.answer, btn);
+            optContainer.appendChild(btn);
+        });
+    }
 }
 
-// 5. CEK JAWABAN (THE CORE LOGIC)
+// CEK JAWABAN
 function checkAnswer(selectedIndex, correctIndex, btn) {
     if(isGameOver) return;
 
-    // Kunci tombol
     const allBtns = optContainer.querySelectorAll('.btn-option');
     allBtns.forEach(b => b.disabled = true);
 
     if (selectedIndex === correctIndex) {
-        // BENAR
         btn.classList.add('correct');
         score += 10;
         updateStats();
@@ -309,13 +240,11 @@ function checkAnswer(selectedIndex, correctIndex, btn) {
             loadQuestion();
         }, 800);
     } else {
-        // SALAH
         btn.classList.add('wrong');
-        allBtns[correctIndex].classList.add('correct'); // Kasih tau yang bener
+        allBtns[correctIndex].classList.add('correct');
         lives--;
         updateStats();
 
-        // Cek Nyawa Habis (ALIEN DETECTED!)
         if (lives <= 0) {
             isGameOver = true;
             setTimeout(() => showView('alien'), 1000);
@@ -328,19 +257,17 @@ function checkAnswer(selectedIndex, correctIndex, btn) {
     }
 }
 
-// 6. UPDATE STATUS (NYAWA & SKOR)
+// UPDATE STATUS
 function updateStats() {
-    scoreDisplay.innerText = `Skor: ${score}`;
-    // Ubah angka nyawa jadi ikon hati
+    if(scoreDisplay) scoreDisplay.innerText = `Skor: ${score}`;
     let heartString = "";
     for(let i=0; i<lives; i++) heartString += "❤️";
-    // Kalau nyawa habis kasih tengkorak
     if(lives===0) heartString = "💀";
-    livesDisplay.innerText = heartString;
+    if(livesDisplay) livesDisplay.innerText = heartString;
 }
 
-// 7. GAME SELESAI (MENANG)
+// GAME SELESAI
 function finishGame() {
-    finalScore.innerText = score;
+    if(finalScore) finalScore.innerText = score;
     showView('result');
 }
