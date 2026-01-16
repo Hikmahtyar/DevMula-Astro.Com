@@ -187,170 +187,160 @@ window.addEventListener('pageshow', function(event) {
 });
 
 /* =========================================
-   6. LOGIKA SYSTEM KUIS (THE BRAIN) 🧠
+   LOGIKA SYSTEM KUIS (ALIEN EDITION) 👽
    ========================================= */
 
-// Bank Soal (Total 15 Soal)
-const quizData = [
-    {
-        q: "Apa nama galaksi tetangga terdekat Bima Sakti?",
-        options: ["Andromeda", "Triangulum", "Sombrero", "Whirlpool"],
-        answer: 0 // Andromeda
-    },
-    {
-        q: "Planet mana yang dijuluki 'Bintang Kejora'?",
-        options: ["Mars", "Jupiter", "Venus", "Saturnus"],
-        answer: 2 // Venus
-    },
-    {
-        q: "Benda langit apa yang punya gravitasi terkuat hingga cahaya tidak bisa lolos?",
-        options: ["Bintang Neutron", "Black Hole", "Supernova", "Nebula"],
-        answer: 1 // Black Hole
-    },
-    {
-        q: "Berapa lama waktu yang dibutuhkan cahaya Matahari sampai ke Bumi?",
-        options: ["1 Detik", "8 Menit", "1 Jam", "1 Tahun"],
-        answer: 1 // 8 Menit
-    },
-    {
-        q: "Apa nama satelit alami terbesar milik planet Saturnus?",
-        options: ["Europa", "Ganymede", "Titan", "Phobos"],
-        answer: 2 // Titan
-    },
-    {
-        q: "Planet manakah yang dikenal sebagai 'Planet Merah'?",
-        options: ["Merkurius", "Mars", "Jupiter", "Venus"],
-        answer: 1 // Mars
-    },
-    {
-        q: "Apa nama galaksi tempat Tata Surya kita berada?",
-        options: ["Andromeda", "Triangulum", "Bima Sakti", "Magellan"],
-        answer: 2 // Bima Sakti
-    },
-    {
-        q: "Siapakah manusia pertama yang menginjakkan kaki di Bulan?",
-        options: ["Yuri Gagarin", "Buzz Aldrin", "Neil Armstrong", "Elon Musk"],
-        answer: 2 // Neil Armstrong
-    },
-    {
-        q: "Warna bintang apa yang menandakan suhu paling panas?",
-        options: ["Merah", "Kuning", "Putih", "Biru"],
-        answer: 3 // Biru
-    },
-    {
-        q: "Planet terbesar di Tata Surya adalah...",
-        options: ["Bumi", "Saturnus", "Jupiter", "Uranus"],
-        answer: 2 // Jupiter
-    },
-    {
-        q: "Fenomena 'Bintang Jatuh' sebenarnya adalah...",
-        options: ["Meteor yang terbakar", "Bintang meledak", "Komet lewat", "Alien mendarat"],
-        answer: 0 // Meteor
-    },
-    {
-        q: "Apa nama rasi bintang yang berbentuk seperti Kalajengking?",
-        options: ["Orion", "Scorpio", "Leo", "Gemini"],
-        answer: 1 // Scorpio
-    },
-    {
-        q: "Planet manakah yang tidak memiliki satelit alami (Bulan)?",
-        options: ["Bumi", "Mars", "Merkurius", "Neptunus"],
-        answer: 2 // Merkurius (dan Venus)
-    },
-    {
-        q: "Lapisan terluar Matahari yang terlihat saat gerhana total disebut...",
-        options: ["Inti", "Fotosfer", "Korona", "Kromosfer"],
-        answer: 2 // Korona
-    },
-    {
-        q: "Satu tahun di planet ini setara dengan 165 tahun di Bumi. Planet apa itu?",
-        options: ["Uranus", "Neptunus", "Saturnus", "Pluto"],
-        answer: 1 // Neptunus
-    }
+// Bank Soal Lengkap (15 Soal)
+const fullQuizData = [
+    { q: "Apa nama galaksi tetangga terdekat Bima Sakti?", options: ["Andromeda", "Triangulum", "Sombrero", "Whirlpool"], answer: 0 },
+    { q: "Planet mana yang dijuluki 'Bintang Kejora'?", options: ["Mars", "Jupiter", "Venus", "Saturnus"], answer: 2 },
+    { q: "Apa yang ada di pusat Bima Sakti?", options: ["Matahari", "Black Hole Supermasif", "Bintang Neutron", "Planet Raksasa"], answer: 1 },
+    { q: "Berapa lama cahaya Matahari sampai ke Bumi?", options: ["1 Detik", "8 Menit", "1 Jam", "1 Tahun"], answer: 1 },
+    { q: "Satelit alami terbesar milik Saturnus adalah...", options: ["Europa", "Ganymede", "Titan", "Phobos"], answer: 2 },
+    { q: "Planet 'Merah' di Tata Surya adalah...", options: ["Merkurius", "Mars", "Jupiter", "Venus"], answer: 1 },
+    { q: "Kita tinggal di galaksi...", options: ["Andromeda", "Triangulum", "Bima Sakti", "Magellan"], answer: 2 },
+    { q: "Manusia pertama di Bulan?", options: ["Yuri Gagarin", "Buzz Aldrin", "Neil Armstrong", "Elon Musk"], answer: 2 },
+    { q: "Bintang terpanas berwarna...", options: ["Merah", "Kuning", "Putih", "Biru"], answer: 3 },
+    { q: "Planet terbesar di Tata Surya?", options: ["Bumi", "Saturnus", "Jupiter", "Uranus"], answer: 2 },
+    { q: "Apa itu 'Bintang Jatuh'?", options: ["Meteor terbakar", "Bintang meledak", "Komet", "UFO"], answer: 0 },
+    { q: "Rasi bintang berbentuk Kalajengking?", options: ["Orion", "Scorpio", "Leo", "Gemini"], answer: 1 },
+    { q: "Planet tanpa satelit alami?", options: ["Bumi", "Mars", "Merkurius", "Neptunus"], answer: 2 },
+    { q: "Lapisan luar Matahari saat gerhana?", options: ["Inti", "Fotosfer", "Korona", "Kromosfer"], answer: 2 },
+    { q: "1 Tahun di sana = 165 Tahun Bumi. Planet apa?", options: ["Uranus", "Neptunus", "Saturnus", "Pluto"], answer: 1 }
 ];
 
-// Variabel Kontrol
-const quizOverlay = document.getElementById('quiz-overlay');
-const questionText = document.getElementById('question-text');
-const optionsContainer = document.getElementById('options-container');
-const quizResult = document.getElementById('quiz-result');
-const quizContent = document.getElementById('quiz-content');
+// Variabel Game
+let gameQuestions = [];
+let currentQIndex = 0;
+let score = 0;
+let lives = 3; // Nyawa awal
+let isGameOver = false;
 
-// Fungsi Buka Kuis
+// Selectors
+const overlay = document.getElementById('quiz-overlay');
+const viewStart = document.getElementById('view-start');
+const viewGame = document.getElementById('view-game');
+const viewResult = document.getElementById('view-result');
+const viewAlien = document.getElementById('view-alien');
+
+const qText = document.getElementById('question-text');
+const optContainer = document.getElementById('options-container');
+const scoreDisplay = document.getElementById('score-display');
+const livesDisplay = document.getElementById('lives-display');
+const finalScore = document.getElementById('final-score');
+
+// 1. FUNGSI BUKA TUTUP
 function openQuiz() {
-    quizOverlay.classList.add('active');
-    loadRandomQuestion();
+    overlay.classList.add('active');
+    showView('start'); // Selalu mulai dari Start Screen
 }
 
-// Fungsi Tutup Kuis
 function closeQuiz() {
-    quizOverlay.classList.remove('active');
+    overlay.classList.remove('active');
 }
 
-// Fungsi Load Soal Acak
-function loadRandomQuestion() {
-    // Reset Tampilan
-    quizContent.style.display = 'block';
-    quizResult.classList.remove('active');
-    optionsContainer.innerHTML = '';
+// 2. LOGIKA PINDAH LAYAR
+function showView(viewName) {
+    // Sembunyikan semua view
+    viewStart.classList.add('hidden');
+    viewGame.classList.add('hidden');
+    viewResult.classList.add('hidden');
+    viewAlien.classList.add('hidden');
 
-    // Ambil soal acak
-    const randomIndex = Math.floor(Math.random() * quizData.length);
-    const currentQuiz = quizData[randomIndex];
+    // Munculkan yang diminta
+    if(viewName === 'start') viewStart.classList.remove('hidden');
+    if(viewName === 'game') viewGame.classList.remove('hidden');
+    if(viewName === 'result') viewResult.classList.remove('hidden');
+    if(viewName === 'alien') viewAlien.classList.remove('hidden');
+}
 
-    // Tampilkan Soal
-    questionText.innerText = currentQuiz.q;
+// 3. MULAI GAME (RESET & SHUFFLE)
+function startQuizGame() {
+    score = 0;
+    lives = 3;
+    currentQIndex = 0;
+    isGameOver = false;
+    updateStats();
 
-    // Tampilkan Opsi Jawaban
-    currentQuiz.options.forEach((option, index) => {
+    // Acak Soal (Fisher-Yates Shuffle)
+    gameQuestions = [...fullQuizData].sort(() => Math.random() - 0.5);
+    // Ambil 10 soal saja per sesi biar ga kepanjangan (Opsional)
+    gameQuestions = gameQuestions.slice(0, 10); 
+
+    showView('game');
+    loadQuestion();
+}
+
+// 4. LOAD PERTANYAAN
+function loadQuestion() {
+    if (currentQIndex >= gameQuestions.length) {
+        finishGame(); // Soal habis, menang
+        return;
+    }
+
+    const currentData = gameQuestions[currentQIndex];
+    qText.innerText = `${currentQIndex + 1}. ${currentData.q}`;
+    optContainer.innerHTML = '';
+
+    currentData.options.forEach((opt, index) => {
         const btn = document.createElement('button');
-        btn.innerText = option;
+        btn.innerText = opt;
         btn.classList.add('btn-option');
-        // Saat diklik, cek jawaban
-        btn.onclick = () => checkAnswer(index, currentQuiz.answer, btn);
-        optionsContainer.appendChild(btn);
+        btn.onclick = () => checkAnswer(index, currentData.answer, btn);
+        optContainer.appendChild(btn);
     });
 }
 
-// Fungsi Cek Jawaban (Logic Cerdas)
-function checkAnswer(selectedIndex, correctIndex, btnElement) {
-    // Kunci semua tombol biar gak bisa klik lagi
-    const allBtns = optionsContainer.querySelectorAll('.btn-option');
-    allBtns.forEach(btn => btn.disabled = true);
+// 5. CEK JAWABAN (THE CORE LOGIC)
+function checkAnswer(selectedIndex, correctIndex, btn) {
+    if(isGameOver) return;
+
+    // Kunci tombol
+    const allBtns = optContainer.querySelectorAll('.btn-option');
+    allBtns.forEach(b => b.disabled = true);
 
     if (selectedIndex === correctIndex) {
-        // JIKA BENAR
-        btnElement.classList.add('correct');
-        showResult(true);
+        // BENAR
+        btn.classList.add('correct');
+        score += 10;
+        updateStats();
+        setTimeout(() => {
+            currentQIndex++;
+            loadQuestion();
+        }, 800);
     } else {
-        // JIKA SALAH
-        btnElement.classList.add('wrong');
-        // Kasih tau mana yang bener
-        allBtns[correctIndex].classList.add('correct');
-        showResult(false);
+        // SALAH
+        btn.classList.add('wrong');
+        allBtns[correctIndex].classList.add('correct'); // Kasih tau yang bener
+        lives--;
+        updateStats();
+
+        // Cek Nyawa Habis (ALIEN DETECTED!)
+        if (lives <= 0) {
+            isGameOver = true;
+            setTimeout(() => showView('alien'), 1000);
+        } else {
+            setTimeout(() => {
+                currentQIndex++;
+                loadQuestion();
+            }, 1000);
+        }
     }
 }
 
-// Fungsi Tampilkan Hasil
-function showResult(isCorrect) {
-    setTimeout(() => {
-        quizContent.style.display = 'none';
-        quizResult.classList.add('active');
-        
-        const icon = document.getElementById('result-icon');
-        const title = document.getElementById('result-title');
-        const desc = document.getElementById('result-desc');
+// 6. UPDATE STATUS (NYAWA & SKOR)
+function updateStats() {
+    scoreDisplay.innerText = `Skor: ${score}`;
+    // Ubah angka nyawa jadi ikon hati
+    let heartString = "";
+    for(let i=0; i<lives; i++) heartString += "❤️";
+    // Kalau nyawa habis kasih tengkorak
+    if(lives===0) heartString = "💀";
+    livesDisplay.innerText = heartString;
+}
 
-        if(isCorrect) {
-            icon.innerText = "🎉";
-            title.innerText = "Luar Biasa!";
-            title.style.color = "#00b894";
-            desc.innerText = "Wawasan kamu sekelas Astronaut NASA!";
-        } else {
-            icon.innerText = "☄️";
-            title.innerText = "Nyaris...";
-            title.style.color = "#d63031";
-            desc.innerText = "Jangan menyerah, ayo coba soal lain!";
-        }
-    }, 800); // Jeda sedikit biar user lihat jawaban dulu
+// 7. GAME SELESAI (MENANG)
+function finishGame() {
+    finalScore.innerText = score;
+    showView('result');
 }

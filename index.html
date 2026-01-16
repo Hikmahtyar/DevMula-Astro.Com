@@ -518,24 +518,45 @@
     <div class="quiz-box">
         <button class="close-quiz" onclick="closeQuiz()">&times;</button>
         
-        <div class="quiz-header">
-            <span class="quiz-icon">🧠</span>
-            <h3>Uji Wawasan Semesta</h3>
-            <p>Jawab pertanyaan ini untuk membuktikan kamu bukan Alien!</p>
+        <div id="view-start" class="quiz-view">
+            <div class="quiz-icon-large">👨‍🚀</div>
+            <h3>Verifikasi Identitas</h3>
+            <p>Sistem keamanan mendeteksi aktivitas mencurigakan. Jawab serangkaian tes ini untuk membuktikan kamu Manusia Bumi.</p>
+            <div class="rules-box">
+                <small>⚠️ Peringatan: Salah 3x = Terdeteksi Alien!</small>
+            </div>
+            <button class="btn-primary-quiz" onclick="startQuizGame()">Mulai Misi</button>
         </div>
 
-        <div id="quiz-content">
+        <div id="view-game" class="quiz-view hidden">
+            <div class="game-stats">
+                <span id="score-display">Skor: 0</span>
+                <span id="lives-display">❤️❤️❤️</span>
+            </div>
+            <div class="progress-line"><div id="timer-bar"></div></div>
+            
             <h4 id="question-text" class="question-text">Loading...</h4>
-            <div id="options-container" class="options-grid">
-                </div>
+            <div id="options-container" class="options-grid"></div>
         </div>
 
-        <div id="quiz-result" class="quiz-result hidden">
-            <div class="result-icon" id="result-icon">🎉</div>
-            <h3 id="result-title">Benar!</h3>
-            <p id="result-desc">Kamu memang ahli astronomi sejati.</p>
-            <button class="btn-next-soal" onclick="loadRandomQuestion()">Soal Berikutnya <i class="fas fa-arrow-right"></i></button>
+        <div id="view-result" class="quiz-view hidden">
+            <div class="result-icon">🏆</div>
+            <h3>Misi Selesai!</h3>
+            <p>Identitas Terverifikasi: <strong style="color:#00b894">MANUSIA CERDAS</strong></p>
+            <h1 id="final-score" class="big-score">100</h1>
+            <button class="btn-primary-quiz" onclick="startQuizGame()">Main Lagi</button>
         </div>
+
+        <div id="view-alien" class="quiz-view hidden">
+            <div class="result-icon">👽</div>
+            <h3 style="color:#ff7675">PERINGATAN!</h3>
+            <p>Pola jawaban tidak logis. Sistem menyimpulkan bahwa:</p>
+            <h2 class="alien-text">KAMU ADALAH ALIEN!</h2>
+            <p style="font-size:0.8rem">Akses ditolak. Silakan kembali ke Mars.</p>
+            <button class="btn-danger-quiz" onclick="closeQuiz()">Kabur</button>
+            <button class="btn-outline-quiz" onclick="startQuizGame()">Coba Menyamar Lagi</button>
+        </div>
+
     </div>
 </div>
 
