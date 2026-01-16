@@ -10,8 +10,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
@@ -22,7 +21,7 @@
     <nav class="article-navbar">
         <div class="container navbar-flex">
             <a href="../index.html" class="brand-logo-unique">
-                <img src="../img/logo.png" alt="Logo" class="navbar-logo-img">
+                <img src="../img/logo.png" alt="Logo" class="navbar-logo-img" onerror="this.style.display='none'">
             </a>
         
             <div class="nav-right-group">
@@ -30,7 +29,7 @@
                     <i class="fas fa-moon"></i> 
                 </button>
             
-                <a href="" class="btn-icon-nav" aria-label="Refresh">
+                <a href="javascript:location.reload()" class="btn-icon-nav" aria-label="Refresh">
                     <i class="fas fa-sync-alt"></i>
                 </a>
 
@@ -45,12 +44,18 @@
 
     <header class="hero-center">
         <div class="container">
-            <span class="tag-category" data-aos="fade-down">🌌 Galaksi & Alam Semesta</span>
+            <nav class="breadcrumb-nav" data-aos="fade-down">
+                <a href="../index.html">Home</a> <span>/</span> 
+                <a href="../index.html">Galaksi</a> <span>/</span> 
+                <span class="current">Triangulum</span>
+            </nav>
+
+            <span class="tag-category" data-aos="fade-down" data-aos-delay="100">🌌 Galaksi & Alam Semesta</span>
             
-            <h1 class="main-title" data-aos="zoom-in">TRIANGULUM: Kenalan sama "Adik Bungsu" di Lingkungan Kosmik Kita</h1>
+            <h1 class="main-title" data-aos="zoom-in" data-aos-delay="200">TRIANGULUM: Kenalan sama "Adik Bungsu" di Lingkungan Kosmik Kita</h1>
             
-            <div class="meta-author-center" data-aos="fade-up">
-                <img src="https://ui-avatars.com/api/?name=Hikmah&background=f368e0&color=fff" alt="Hikmah" class="avatar-circle">
+            <div class="meta-author-center" data-aos="fade-up" data-aos-delay="300">
+                <img src="https://ui-avatars.com/api/?name=Hikmah&background=48dbfb&color=fff" alt="Hikmah" class="avatar-circle">
                 <div class="meta-text">
                     <span class="author-name">Hikmah (DevMula)</span>
                     <span class="publish-date">28 Desember 2025 &bull; 3 Menit Baca</span>
@@ -59,20 +64,23 @@
         </div>
     </header>
 
-    <div class="hero-image-wrapper container" data-aos="fade-up">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUmAJ4gGOZYWz9sQDlRvslrwkMF6kPrMi4zcIRVJQ3wTcoJ6RsBkyRvaWaiv8QvfaCHUu-6gFa6K2e_LZD8CcZ1zPH5lbtXHe5Rao_nRCu&s=10" alt="Galaksi Triangulum M33">
+    <div class="hero-image-wrapper container" data-aos="fade-up" data-aos-delay="400">
+        <div class="image-frame">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUmAJ4gGOZYWz9sQDlRvslrwkMF6kPrMi4zcIRVJQ3wTcoJ6RsBkyRvaWaiv8QvfaCHUu-6gFa6K2e_LZD8CcZ1zPH5lbtXHe5Rao_nRCu&s=10" alt="Galaksi Triangulum M33">
+            <div class="image-glow"></div>
+        </div>
         <p class="caption-center">Galaksi Triangulum (M33), sering disebut "Galaksi Kincir Angin" karena bentuk spiralnya yang terbuka. (Image :Nasa)</p>
     </div>
 
     <section class="article-content-wrapper">
         <div class="content-limit">
             
-            <p class="lead-paragraph">
+            <p class="lead-paragraph" data-aos="fade-up">
                 Kalau Bima Sakti itu "Rumah Kita", dan Andromeda itu "Tetangga Raksasa" di sebelah, kenalan yuk sama <strong>Triangulum (M33)</strong>. Dia ini sering dianggap sebagai galaksi ketiga terbesar di Grup Lokal kita setelah dua kakaknya tadi. Ukurannya lebih kecil, agak pemalu, tapi punya pesona yang gak kalah cantik lho!
             </p>
 
-            <div class="table-of-contents">
-                <h4>📚 Daftar Isi:</h4>
+            <div class="table-of-contents" data-aos="fade-up">
+                <h4><i class="fas fa-list-ul"></i> Daftar Isi:</h4>
                 <ul>
                     <li><a href="#fakta1">1. Si "Kecil" di Antara Raksasa</a></li>
                     <li><a href="#fakta2">2. Pabrik Bintang Raksasa (NGC 604)</a></li>
@@ -81,64 +89,69 @@
                 </ul>
             </div>
 
-            <h3 id="fakta1">1. Si "Kecil" di Antara Raksasa</h3>
-            <p>
-                Jangan salah sangka, "kecil" dalam skala galaksi itu tetap aja <em>gede banget</em>. Tapi dibanding Andromeda yang punya triliunan bintang, Triangulum ini lebih 'santai' dengan "cuma" sekitar 40 miliar bintang. 
-            </p>
-            <p>
-                Bentuk spiralnya unik, agak longgar dan terbuka, makanya kadang dia juga dijuluki <em>Pinwheel Galaxy</em> (Galaksi Kincir Angin), meskipun nama itu sering rebutan sama galaksi lain (M101).
-            </p>
-            
-            <div class="fact-box">
-                <h4>📊 Data Spesial Triangulum (M33)</h4>
-                <ul>
-                    <li><strong>Jarak:</strong> 3 Juta Tahun Cahaya (Sedikit lebih jauh dari Andromeda).</li>
-                    <li><strong>Diameter:</strong> 60.000 Tahun Cahaya (Sekitar setengahnya Bima Sakti).</li>
-                    <li><strong>Lokasi:</strong> Di rasi bintang Triangulum (Si Segitiga).</li>
-                </ul>
-            </div>
-
-            <h3 id="fakta2">2. Pabrik Bintang Raksasa (NGC 604)</h3>
-            <p>
-                Meskipun badannya kecil, Triangulum punya fitur yang bikin astronom geleng-geleng kepala. Di salah satu lengan spiralnya, ada nebula super besar bernama <strong>NGC 604</strong>.
-            </p>
-            <p>
-                Ini adalah "pabrik" tempat lahirnya bintang-bintang baru yang masif banget. Saking gedenya, kalau nebula ini ditaruh di posisi Nebula Orion kita, cahayanya bakal nerangin malam sampai bisa bikin bayangan!
-            </p>
-
-            <div class="tips-box">
-                <div class="tips-icon"><i class="fas fa-binoculars"></i></div>
-                <div class="tips-content" id="tips">
-                    <strong>Tantangan Pengamatan:</strong> Triangulum terkenal sebagai objek "uji nyali" buat mata telanjang. Cahayanya sangat menyebar (permukaannya redup). Kamu butuh langit yang <em>benar-benar</em> gelap gulita tanpa polusi cahaya kota sedikitpun untuk melihatnya sebagai noda samar kayak kapas. Binokular sangat membantu!
+            <article>
+                <h3 id="fakta1">1. Si "Kecil" di Antara Raksasa</h3>
+                <p>
+                    Jangan salah sangka, "kecil" dalam skala galaksi itu tetap aja <em>gede banget</em>. Tapi dibanding Andromeda yang punya triliunan bintang, Triangulum ini lebih 'santai' dengan "cuma" sekitar 40 miliar bintang. 
+                </p>
+                <p>
+                    Bentuk spiralnya unik, agak longgar dan terbuka, makanya kadang dia juga dijuluki <em>Pinwheel Galaxy</em> (Galaksi Kincir Angin), meskipun nama itu sering rebutan sama galaksi lain (M101).
+                </p>
+                
+                <div class="fact-box hud-style">
+                    <div class="hud-corner top-left"></div>
+                    <div class="hud-corner top-right"></div>
+                    <div class="hud-corner bottom-left"></div>
+                    <div class="hud-corner bottom-right"></div>
+                    
+                    <h4><i class="fas fa-atom"></i> Data Spesial Triangulum (M33)</h4>
+                    <ul>
+                        <li><strong>Jarak:</strong> 3 Juta Tahun Cahaya (Sedikit lebih jauh dari Andromeda).</li>
+                        <li><strong>Diameter:</strong> 60.000 Tahun Cahaya (Sekitar setengahnya Bima Sakti).</li>
+                        <li><strong>Lokasi:</strong> Di rasi bintang Triangulum (Si Segitiga).</li>
+                    </ul>
                 </div>
-            </div>
 
-            <hr class="divider-line">
+                <h3 id="fakta2">2. Pabrik Bintang Raksasa (NGC 604)</h3>
+                <p>
+                    Meskipun badannya kecil, Triangulum punya fitur yang bikin astronom geleng-geleng kepala. Di salah satu lengan spiralnya, ada nebula super besar bernama <strong>NGC 604</strong>.
+                </p>
+                <p>
+                    Ini adalah "pabrik" tempat lahirnya bintang-bintang baru yang masif banget. Saking gedenya, kalau nebula ini ditaruh di posisi Nebula Orion kita, cahayanya bakal nerangin malam sampai bisa bikin bayangan!
+                </p>
 
-            <h3 id="kesimpulan">🧩 Kesimpulan</h3>
-            <p>
-                Triangulum mungkin gak setenar Andromeda dan gak seemosional Bima Sakti bagi kita. Tapi dia adalah bukti kalau galaksi yang lebih "sederhana" pun menyimpan keajaiban kosmik yang luar biasa. Lain kali kalau kamu lihat rasi Andromeda, coba geser sedikit pandanganmu ke bawah, siapa tahu kamu bisa menyapa si adik bungsu ini!
-            </p>
+                <div class="tips-box" id="tips">
+                    <div class="tips-icon"><i class="fas fa-low-vision"></i></div>
+                    <div class="tips-content">
+                        <strong>Tantangan Pengamatan:</strong> Triangulum terkenal sebagai objek "uji nyali" buat mata telanjang. Cahayanya sangat menyebar (permukaannya redup). Kamu butuh langit yang <em>benar-benar</em> gelap gulita tanpa polusi cahaya kota sedikitpun untuk melihatnya sebagai noda samar kayak kapas. Binokular sangat membantu!
+                    </div>
+                </div>
+
+                <hr class="divider-line">
+
+                <h3 id="kesimpulan">🧩 Kesimpulan</h3>
+                <p>
+                    Triangulum mungkin gak setenar Andromeda dan gak seemosional Bima Sakti bagi kita. Tapi dia adalah bukti kalau galaksi yang lebih "sederhana" pun menyimpan keajaiban kosmik yang luar biasa. Lain kali kalau kamu lihat rasi Andromeda, coba geser sedikit pandanganmu ke bawah, siapa tahu kamu bisa menyapa si adik bungsu ini!
+                </p>
+            </article>
 
         </div>
 
-            <div class="references-box">
-                <h5>📚 Sumber & Referensi:</h5>
-                <ul>
-                    <li>
-                        <a href="https://apod.nasa.gov/apod/ap191231.html" target="_blank">
-                            <i class="fas fa-external-link-alt"></i> NASA APOD: Triangulum Galaxy
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://en.wikipedia.org/wiki/Triangulum_Galaxy" target="_blank">
-                            <i class="fas fa-external-link-alt"></i> Wikipedia: Triangulum (M33)
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-
+        <div class="references-box">
+            <h5>📚 Sumber & Referensi:</h5>
+            <ul>
+                <li>
+                    <a href="https://apod.nasa.gov/apod/ap191231.html" target="_blank">
+                        <span>NASA APOD: Triangulum Galaxy</span> <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://en.wikipedia.org/wiki/Triangulum_Galaxy" target="_blank">
+                        <span>Wikipedia: Triangulum (M33)</span> <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </section>
 
     <section class="author-promo-section">
@@ -147,27 +160,16 @@
                 <span class="promo-label">Penulis Artikel</span>
                 <h2>Hikmah & DevMula</h2>
                 <p>Suka pembahasan astronomi yang santai kayak gini? Saya juga bikin website keren lho.</p>
-                <a href="https://devmula.netlify.app/" class="btn-cta-primary">Lihat Portfolio Saya <i class="fas fa-arrow-right"></i></a>
+                <a href="https://devmula.netlify.app/" class="btn-cta-primary">Lihat Portfolio Saya <i class="fas fa-rocket"></i></a>
             </div>
         </div>
-
     </section>
 
     <footer class="footer-simple">
-        <p>&copy; 2026 DevMula Astronomy Series.</p>
+        <p>&copy; 2026 DevMula Astronomy Series | Dibuat dengan 🩵</p>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init();
-        window.onscroll = function() {
-            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            let scrolled = (winScroll / height) * 100;
-            document.querySelector(".reading-progress-bar").style.width = scrolled + "%";
-        };
-    </script>
-    
     <script src="script.js"></script>
 </body>
 </html>

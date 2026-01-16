@@ -1,324 +1,331 @@
-/* --- VARIABLES --- */
+/* =========================================
+   1. RESET & VARIABLES
+   ========================================= */
 :root {
-    --bg-color: #0b0d17;
-    --card-bg: #15192b;
-    --text-primary: #ecf0f1;
-    --text-secondary: #bdc3c7;
+    /* Mode Gelap (Default) - Warna Deep Space */
+    --bg-color: #05070a; 
+    --card-bg: rgba(21, 25, 43, 0.6); /* Transparan untuk efek kaca */
+    --text-primary: #ffffff;
+    --text-secondary: #94a3b8;
     --accent: #6c5ce7;
-    --filter-bg: rgba(255,255,255,0.05);
+    --border-card: rgba(255, 255, 255, 0.08);
+    --glow-opacity: 0;
 }
 
 .light-mode {
-    --bg-color: #f5f6fa;
+    /* Mode Terang - Warna Awan Siang */
+    --bg-color: #f0f2f5;
     --card-bg: #ffffff;
     --text-primary: #2d3436;
     --text-secondary: #636e72;
     --accent: #0984e3;
-    --filter-bg: rgba(0,0,0,0.05);
+    --border-card: rgba(0, 0, 0, 0.05);
+    --glow-opacity: 0.1; /* Glow sedikit terlihat di light mode */
 }
 
 * {
     margin: 0; padding: 0; box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
-    transition: background-color 0.4s ease, color 0.2s ease;
+    /* Transisi halus untuk semua perubahan elemen */
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 body {
     background-color: var(--bg-color);
     color: var(--text-primary);
-    overflow-x: hidden;
     min-height: 100vh;
+    overflow-x: hidden; /* Mencegah scroll samping di HP */
 }
 
-/* --- NAVBAR --- */
+/* Font Khusus Judul agar Futuristik */
+h1, h2, h3, .brand-text { font-family: 'Space Grotesk', sans-serif; }
+
+/* =========================================
+   2. NAVBAR (GLASSMORPHISM)
+   ========================================= */
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: flex; justify-content: space-between; align-items: center;
     padding: 15px 5%;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    backdrop-filter: blur(10px);
-    background: rgba(var(--bg-color), 0.8);
-    border-bottom: 1px solid rgba(128,128,128,0.1);
+    position: sticky; top: 0; z-index: 100;
+    /* Efek Kaca Buram */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background: rgba(var(--bg-color), 0.7);
+    border-bottom: 1px solid var(--border-card);
 }
 
-.custom-logo {
-    height: 45px; /* Sesuaikan ukuran logo */
-    width: auto;
-}
-
-.nav-actions { display: flex; gap: 10px; }
-
-.btn-icon {
-    width: 40px; height: 40px;
-    border-radius: 50%;
-    border: 1px solid var(--text-secondary);
-    background: transparent;
-    color: var(--text-primary);
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer;
-    text-decoration: none;
-    transition: 0.3s;
-}
-
-.btn-icon:hover {
-    background: var(--accent);
-    color: white;
-    border-color: var(--accent);
-}
-
-/* --- HERO & FILTER --- */
-.hero {
-    text-align: center;
-    padding: 30px 20px;
-}
-
+.logo-area { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.custom-logo { height: 35px; width: auto; }
+.brand-text { font-size: 1.2rem; font-weight: 700; }
 .highlight { color: var(--accent); }
 
+.btn-icon {
+    width: 40px; height: 40px; border-radius: 50%;
+    border: 1px solid var(--border-card);
+    background: rgba(255,255,255,0.05);
+    color: var(--text-primary);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; text-decoration: none;
+    transition: transform 0.2s;
+}
+.btn-icon:hover { background: var(--accent); border-color: var(--accent); color: white; transform: scale(1.1); }
+
+/* =========================================
+   3. HERO & SEARCH BAR
+   ========================================= */
+.hero { text-align: center; padding: 30px 20px; }
+.hero h1 { font-size: 2.2rem; margin-bottom: 10px; line-height: 1.2; }
+.highlight-text { 
+    background: linear-gradient(90deg, #81ecec, #6c5ce7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.hero p { color: var(--text-secondary); margin-bottom: 25px; font-size: 0.9rem; }
+
+/* Styles untuk Search Bar */
+.search-wrapper {
+    position: relative; max-width: 400px; margin: 0 auto 20px;
+}
+.search-icon {
+    position: absolute; left: 15px; top: 50%; transform: translateY(-50%);
+    color: var(--text-secondary); pointer-events: none;
+}
+#searchInput {
+    width: 100%; padding: 12px 20px 12px 45px;
+    border-radius: 50px; border: 1px solid var(--border-card);
+    background: rgba(255,255,255,0.05);
+    color: var(--text-primary); font-size: 0.95rem; outline: none;
+    transition: 0.3s;
+}
+#searchInput:focus {
+    border-color: var(--accent);
+    background: rgba(255,255,255,0.1);
+    box-shadow: 0 0 15px rgba(108, 92, 231, 0.2);
+}
+
+/* =========================================
+   4. FILTER BUTTONS (Scrollable di HP)
+   ========================================= */
 .filter-container {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 8px;
-    padding: 0 20px 30px;
-    max-width: 800px;
-    margin: 0 auto;
+    display: flex; justify-content: center; flex-wrap: wrap; gap: 8px;
+    padding: 0 15px 30px; max-width: 900px; margin: 0 auto;
 }
 
 .filter-btn {
-    padding: 8px 16px;
-    border: none;
-    background: var(--filter-bg);
-    color: var(--text-primary);
-    border-radius: 50px;
-    cursor: pointer;
-    font-size: 0.85rem;
-    font-weight: 500;
-    transition: 0.3s;
+    padding: 8px 16px; border: 1px solid var(--border-card);
+    background: rgba(255,255,255,0.03); color: var(--text-secondary);
+    border-radius: 50px; cursor: pointer; font-size: 0.85rem; font-weight: 500;
+    transition: all 0.2s;
+    white-space: nowrap; /* Mencegah teks turun baris */
 }
-
 .filter-btn:hover, .filter-btn.active {
-    background: var(--accent);
-    color: white;
+    background: var(--accent); color: white; border-color: var(--accent);
     transform: translateY(-2px);
 }
+/* Tombol Berita Spesial */
+.news-btn { border-color: rgba(255, 159, 67, 0.3); color: #ff9f43; }
+.news-btn:hover, .news-btn.active { background: #ff9f43; color: white; border-color: #ff9f43; }
 
-/* --- GRID SYSTEM --- */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px 50px;
-}
+/* =========================================
+   5. CARD GRID & STYLING
+   ========================================= */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px 60px; }
 
 .card-grid {
     display: grid;
-    /* Grid Responsif Otomatis */
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    /* Responsive Grid: Otomatis menyesuaikan layar HP/Laptop */
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); 
     gap: 15px;
 }
 
 .card {
+    position: relative; /* Penting untuk penempatan Glow */
     background: var(--card-bg);
-    border-radius: 12px;
-    padding: 20px 15px;
-    text-decoration: none;
-    color: var(--text-primary);
-    border: 1px solid rgba(128,128,128,0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+    border-radius: 16px; padding: 25px 15px;
+    text-decoration: none; color: var(--text-primary);
+    border: 1px solid var(--border-card);
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+    overflow: hidden; /* Agar glow tidak keluar kotak */
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+/* Elemen Glow di Belakang Kartu */
+.card-glow {
+    position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+    /* Gradient Radial Halus */
+    background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 60%);
+    opacity: var(--glow-opacity); 
+    transform: scale(0.8); 
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    pointer-events: none; z-index: 0;
+}
+
+/* Efek Hover di Desktop */
+@media (hover: hover) {
+    .card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.3); }
+    .card:hover .card-glow { opacity: 0.3; transform: scale(1); } /* Glow menyala */
+    .card:hover .card-icon { transform: scale(1.1); filter: drop-shadow(0 0 8px currentColor); }
+}
+
+.card-icon { font-size: 2rem; margin-bottom: 12px; z-index: 1; transition: transform 0.3s; position: relative; }
+.card h3 { font-size: 1rem; margin-bottom: 5px; z-index: 1; position: relative; }
+.card p { font-size: 0.75rem; color: var(--text-secondary); z-index: 1; position: relative; }
+
+/* Badge Berita */
+.badge {
+    font-size: 0.65rem; font-weight: bold; padding: 4px 10px; border-radius: 8px;
+    margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; z-index: 1;
+}
+.upcoming { background: rgba(255, 159, 67, 0.15); color: #ff9f43; border: 1px solid rgba(255, 159, 67, 0.3); }
+.passed { background: rgba(239, 87, 119, 0.15); color: #ef5777; border: 1px solid rgba(239, 87, 119, 0.3); }
+
+.hidden { display: none; }
+
+/* =========================================
+   6. FOOTER & ANIMASI
+   ========================================= */
+.footer {
+    text-align: center; padding: 40px 20px;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    border-top: 1px solid var(--border-card);
+}
+/* KODE BARU (PAKAI INI) */
+.promo-box {
+    background: linear-gradient(135deg, #2d3436, #000);
+    padding: 25px; border-radius: 15px; max-width: 400px; margin: 0 auto 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+    
+    /* TAMBAHAN WAJIB: Paksa teks jadi putih */
+    color: #ffffff !important; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* Pastikan judul dan paragraf di dalam box ini juga putih */
+.promo-box h3, 
+.promo-box p {
+    color: #ffffff !important;
+}
+.btn-promo {
+    display: inline-block; background: var(--accent); color: white;
+    padding: 8px 20px; border-radius: 50px; text-decoration: none; font-size: 0.9rem; margin-top: 10px;
+}
+.copyright { font-size: 0.8rem; color: var(--text-secondary); }
+
+/* Animasi Meteor Jatuh */
+.meteor {
+    position: fixed; top: -100px; width: 2px; height: 60px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0), #fff);
+    z-index: 9999; pointer-events: none; animation: meteor-fall linear forwards;
+}
+@keyframes meteor-fall {
+    0% { transform: translateY(-100px) translateX(0); opacity: 1; }
+    100% { transform: translateY(110vh) translateX(-100px); opacity: 0; }
+}
+/* Animasi Muncul Kartu */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); } 
+    to { opacity: 1; transform: scale(1); } 
+}
+
+/* =========================================
+   7. RESPONSIVE MOBILE TWEAKS
+   ========================================= */
+@media (max-width: 480px) {
+    .hero h1 { font-size: 1.8rem; }
+    .card-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } /* 2 Kolom di HP */
+    .filter-container { overflow-x: auto; justify-content: flex-start; padding-bottom: 10px; } /* Scroll samping jika tombol banyak */
+    .card { padding: 20px 10px; }
+}
+
+/* =========================================
+   FIX TAMBAHAN UNTUK HALAMAN ARTIKEL
+   ========================================= */
+
+/* 1. Paksa Kartu Promo di Artikel (Andromeda/Triangulum) Selalu Gelap */
+.promo-card-dark {
+    background: #0b0e14 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important; /* Teks Putih */
+}
+
+.promo-card-dark h2, 
+.promo-card-dark p,
+.promo-card-dark .promo-label {
+    color: #ffffff !important; /* Paksa semua teks anak jadi putih */
+}
+
+/* Tombol di dalam kartu promo */
+.promo-card-dark .btn-cta-primary {
+    background: #ffffff !important;
+    color: #000000 !important;
+}
+
+/* 2. Fix Judul Artikel saat Mode Terang */
+/* Agar tulisan "ANDROMEDA..." terlihat saat background putih */
+body.light-mode .main-title {
+    background: linear-gradient(135deg, #2d3436 30%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* --- WARP DRIVE BUTTON --- */
+.warp-btn {
+    margin-top: 15px;
+    padding: 12px 30px;
+    background: linear-gradient(45deg, #ff0099, #493240);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 50px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(255, 0, 153, 0.5);
     transition: 0.3s;
-    position: relative;
+    font-family: 'Space Grotesk', sans-serif;
+    letter-spacing: 1px;
+}
+.warp-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 30px rgba(255, 0, 153, 0.8);
+}
+.warp-btn i { margin-right: 8px; }
+
+/* --- ANIMASI LAYAR HYPERSPACE --- */
+.warp-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: #000;
+    z-index: 9999;
+    display: none; /* Sembunyi dulu */
+    align-items: center; justify-content: center;
     overflow: hidden;
 }
 
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    border-color: var(--accent);
+.warp-overlay.active { display: flex; }
+
+.warp-text {
+    position: absolute; color: white; font-family: 'Space Grotesk';
+    font-size: 2rem; letter-spacing: 5px; font-weight: bold;
+    animation: pulseText 0.5s infinite alternate;
+    z-index: 10;
 }
 
-.card-icon { font-size: 2rem; margin-bottom: 10px; }
-.card h3 { font-size: 1rem; margin-bottom: 5px; }
-.card p { font-size: 0.75rem; color: var(--text-secondary); }
-
-/* Class untuk menyembunyikan kartu (filter) */
-.hidden { display: none; }
-
-/* --- FOOTER --- */
-.footer {
-    text-align: center;
-    padding: 40px 20px;
-    border-top: 1px solid rgba(128,128,128,0.1);
-    font-size: 0.9rem;
+/* Efek Bintang Bergerak Cepat */
+.warp-overlay .stars {
+    position: absolute; width: 100%; height: 100%;
+    background: transparent;
+    box-shadow: 
+        10vw 50vh 2px white, 
+        20vw 40vh 1px white, 
+        30vw 80vh 2px white,
+        80vw 10vh 2px white,
+        90vw 90vh 1px white; 
+    animation: hyperSpace 0.5s linear infinite;
+    transform-origin: center;
 }
 
-.promo-box {
-    background: linear-gradient(135deg, #6c5ce7, #a29bfe);
-    color: white;
-    padding: 20px;
-    border-radius: 10px;
-    max-width: 400px;
-    margin: 0 auto 20px;
+@keyframes hyperSpace {
+    0% { transform: scale(1); opacity: 1; }
+    50% { opacity: 0.8; }
+    100% { transform: scale(10); opacity: 0; }
 }
 
-.btn-promo {
-    display: inline-block;
-    background: white;
-    color: #6c5ce7;
-    padding: 8px 20px;
-    border-radius: 20px;
-    text-decoration: none;
-    font-weight: bold;
-    margin-top: 10px;
-    font-size: 0.85rem;
-}
-
-/* --- ANIMASI METEOR MERAH --- */
-.meteor {
-    position: fixed;
-    top: -100px;
-    width: 3px;
-    height: 80px;
-    /* WARNA METEOR MERAH API (Gradient dari transparan ke Merah) */
-    background: linear-gradient(to bottom, rgba(255, 69, 55, 0), #ff4757);
-    z-index: 9999;
-    pointer-events: none;
-    border-radius: 5px;
-    box-shadow: 0 0 10px #ff4757; /* Efek menyala */
-    animation: meteor-fall linear forwards;
-}
-
-@keyframes meteor-fall {
-    0% { transform: translateY(-100px) translateX(0); opacity: 1; }
-    100% { transform: translateY(120vh) translateX(-150px); opacity: 0; }
-}
-
-/* Animasi Muncul Kartu */
-@keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
-}
-
-/* ======================================================= */
-/* SECTION: BERITA LANGIT (DESAIN WIDE LIST)               */
-/* ======================================================= */
-
-/* 1. Container List (Tumpuk ke Bawah) */
-.news-container {
-    display: flex;             /* Pakai Flexbox */
-    flex-direction: column;    /* Arah ke bawah (Stacking) */
-    gap: 20px;                 /* Jarak antar kartu */
-    margin-top: 40px;
-    width: 100%;               /* Lebar penuh */
-}
-
-/* 2. Kartu Berita (Wide Card) */
-.news-card {
-    width: 100%;               /* Paksa lebar 100% container */
-    background: var(--bg-card); /* Warna gelap transparan */
-    border: 1px solid var(--border-color);
-    border-radius: 15px;       /* Sudut membulat */
-    padding: 35px 20px;        /* Padding atas-bawah agak besar biar lega */
-    text-align: center;        /* Semua teks rata tengah */
-    transition: transform 0.3s ease, border-color 0.3s ease;
-    position: relative;
-}
-
-/* Efek Hover */
-.news-card:hover {
-    transform: translateY(-3px); /* Naik sedikit saja */
-    border-color: var(--accent-color); /* Border menyala sesuai tema */
-    background: var(--bg-card-lighter); /* Jadi agak terang dikit */
-}
-
-/* 3. Ikon di Tengah Atas */
-.news-icon {
-    font-size: 1.8rem;
-    margin-bottom: 15px;
-    color: var(--accent-color); /* Warna ikon mengikuti tema */
-    filter: drop-shadow(0 0 8px var(--accent-glow));
-}
-
-/* 4. Badge Status */
-.news-status {
-    display: inline-block;
-    font-size: 0.75rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    padding: 5px 12px;
-    border-radius: 4px; /* Kotak dengan sudut tumpul dikit */
-    margin-bottom: 10px;
-}
-
-/* Warna Status: SEGERA */
-.status-coming {
-    background: rgba(255, 255, 255, 0.15);
-    color: #fff;
-}
-
-/* Warna Status: SUDAH LEWAT */
-.status-done {
-    background: rgba(255, 255, 255, 0.05); /* Lebih gelap */
-    color: #888; /* Teks abu-abu */
-}
-
-/* 5. Teks Judul & Deskripsi */
-.news-title {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.4rem; /* Judul besar */
-    font-weight: 700;
-    margin-bottom: 8px;
-    color: var(--text-main);
-}
-
-.news-desc {
-    font-size: 0.95rem;
-    color: var(--text-muted);
-    margin: 0; /* Hapus margin default */
-}
-
-/* ======================================================= */
-/* RESPONSIVE (HP)                                         */
-/* ======================================================= */
-@media (max-width: 768px) {
-    .news-container {
-        /* Di HP jadi 1 kolom saja biar rapi */
-        grid-template-columns: 1fr; 
-        gap: 15px;
-    }
-    
-    .news-card {
-        padding: 20px;
-    }
-}
-/* --- UPDATE LOGO BRANDING --- */
-
-.logo-area {
-    display: flex;       /* Wajib: Agar gambar & teks berjejer ke samping */
-    align-items: center; /* Agar posisi vertikal di tengah */
-    gap: 10px;           /* Jarak antara Gambar Logo dan Tulisan */
-    cursor: pointer;     /* Biar kursor berubah jari saat ditunjuk */
-}
-
-.custom-logo {
-    height: 40px;        /* Ukuran Logo Gambar */
-    width: auto;
-}
-
-.brand-text {
-    font-family: 'Poppins', sans-serif; /* Atau pakai 'Space Grotesk' kalau mau lebih sci-fi */
-    font-size: 1.1rem;   /* Ukuran huruf */
-    font-weight: 700;    /* Tebal */
-    color: var(--text-primary);
-    letter-spacing: 0.5px; /* Jarak antar huruf sedikit renggang */
-}
-
-/* Bagian '.Astro' warnanya ungu mengikuti tema */
-.logo-area .highlight {
-    color: var(--accent);
-}
+@keyframes pulseText { from { opacity: 0.5; } to { opacity: 1; } }

@@ -9,30 +9,45 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="icon" type="image/png" href="img/logo.png">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <nav class="navbar">
         <div class="logo-area">
-            <img src="img/logo.png" alt="Logo DevMula" class="custom-logo">
+            <img src="img/logo.png" alt="Logo DevMula" class="custom-logo" onerror="this.style.display='none'">
             <span class="brand-text">DM.<span class="highlight">Astro</span></span>
         </div>
 
         <div class="nav-actions">
-            <button id="theme-toggle" class="btn-icon">
+            <button id="theme-toggle" class="btn-icon" aria-label="Ganti Tema">
                 <i class="fas fa-moon"></i>
             </button>
-            <a href="index.html" class="btn-icon">
+            <a href="index.html" class="btn-icon" aria-label="Home">
                 <i class="fas fa-home"></i>
             </a>
         </div>
     </nav>
 
     <header class="hero">
-        <h1>Ensiklopedia <span class="highlight">Semesta</span></h1>
-        <p>Pilih kategori untuk memfilter objek angkasa.</p>
+        <h1>Ensiklopedia <span class="highlight-text">Semesta</span></h1>
+        <p>Jelajahi keindahan objek angkasa dalam genggamanmu.</p>
+        
+        <div class="search-wrapper">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="searchInput" placeholder="Cari bintang, planet, atau galaksi..." onkeyup="searchObjects()">
+        </div>
+        <button class="warp-btn" onclick="activateWarpDrive()">
+    <i class="fas fa-rocket"></i> Warp Drive (Acak)
+</button>
+
+<div id="warp-overlay" class="warp-overlay">
+    <div class="stars"></div>
+    <div class="warp-text">ENTERING HYPERSPACE...</div>
+</div>
     </header>
+
+    
 
     <div class="filter-container">
         <button class="filter-btn active" onclick="filterObjects('all')">Semua</button>
@@ -43,367 +58,447 @@
         <button class="filter-btn" onclick="filterObjects('gugus')">Gugus Bintang</button>
         <button class="filter-btn" onclick="filterObjects('satelit')">Satelit</button>
         <button class="filter-btn" onclick="filterObjects('asteroid')">Asteroid</button>
-        <button class="filter-btn" onclick="filterObjects('unik')">Objek Aneh</button>
-        <button class="filter-btn" onclick="filterObjects('berita')">📰 Berita Langit</button>
+        <button class="filter-btn special-btn" onclick="filterObjects('unik')">Objek Aneh</button>
+        <button class="filter-btn news-btn" onclick="filterObjects('berita')"><i class="far fa-newspaper"></i> Berita</button>
     </div>
 
     <main class="container">
         <div class="card-grid" id="gallery">
 
             <a href="andromeda/index.html" class="card" data-category="galaksi">
-                <div class="card-icon" style="color:#a29bfe;"><i class="fa-solid fa-fan fa-spin" style="color: #a29bfe;"></i></div>
+                <div class="card-glow" style="background: #a29bfe;"></div>
+                <div class="card-icon" style="color:#a29bfe;"><i class="fa-solid fa-fan fa-spin"></i></div>
                 <div class="card-content"><h3>Andromeda</h3><p>Tetangga Bima Sakti</p></div>
             </a>
             <a href="triangulum/index.html" class="card" data-category="galaksi">
-                <div class="card-icon" style="color:#74b9ff;"><i class="fa-solid fa-fan fa-spin" style="color: #74b9ff;"></i></div>
+                <div class="card-glow" style="background: #74b9ff;"></div>
+                <div class="card-icon" style="color:#74b9ff;"><i class="fa-solid fa-fan fa-spin"></i></div>
                 <div class="card-content"><h3>Triangulum</h3><p>Galaksi Segitiga</p></div>
             </a>
             <a href="sombrero/index.html" class="card" data-category="galaksi">
-                <div class="card-icon" style="color:#fdcb6e;"><i class="fa-solid fa-fan fa-spin" style="color: #fdcb6e;"></i></div>
+                <div class="card-glow" style="background: #fdcb6e;"></div>
+                <div class="card-icon" style="color:#fdcb6e;"><i class="fa-solid fa-fan fa-spin"></i></div>
                 <div class="card-content"><h3>Sombrero</h3><p>Galaksi Topi Meksiko</p></div>
             </a>
             <a href="blackeye/index.html" class="card" data-category="galaksi">
-                <div class="card-icon" style="color:#636e72;"><i class="fa-solid fa-fan fa-spin" style="color: #636e72;"></i></div>
+                <div class="card-glow" style="background: #636e72;"></div>
+                <div class="card-icon" style="color:#636e72;"><i class="fa-solid fa-fan fa-spin"></i></div>
                 <div class="card-content"><h3>Black Eye</h3><p>Galaksi Mata Hitam</p></div>
             </a>
             <a href="whirpool/index.html" class="card" data-category="galaksi">
-                <div class="card-icon" style="color:#0984e3;"><i class="fa-solid fa-fan fa-spin" style="color: #3b80f7;"></i></div>
+                <div class="card-glow" style="background: #0984e3;"></div>
+                <div class="card-icon" style="color:#0984e3;"><i class="fa-solid fa-fan fa-spin"></i></div>
                 <div class="card-content"><h3>Whirlpool</h3><p>Galaksi Pusaran</p></div>
             </a>
             <a href="magelanbesar/index.html" class="card" data-category="galaksi">
+                <div class="card-glow" style="background: #dfe6e9;"></div>
                 <div class="card-icon" style="color:#dfe6e9;"><i class="fas fa-cloud"></i></div>
                 <div class="card-content"><h3>Awan Magellan Besar</h3><p>Satelit Galaksi Kita</p></div>
             </a>
             <a href="magelankecil/index.html" class="card" data-category="galaksi">
+                <div class="card-glow" style="background: #b2bec3;"></div>
                 <div class="card-icon" style="color:#b2bec3;"><i class="fas fa-cloud"></i></div>
                 <div class="card-content"><h3>Awan Magellan Kecil</h3><p>Adik Magellan Besar</p></div>
             </a>
             <a href="m82/index.html" class="card" data-category="galaksi">
-                <div class="card-icon" style="color:#e17055;"><i class="fa-solid fa-fan fa-spin" style="color: #e17055;"></i></div>
+                <div class="card-glow" style="background: #e17055;"></div>
+                <div class="card-icon" style="color:#e17055;"><i class="fa-solid fa-fan fa-spin"></i></div>
                 <div class="card-content"><h3>Galaksi Cerutu</h3><p>Starburst Galaxy</p></div>
             </a>
 
             <a href="matahari/index.html" class="card" data-category="bintang">
+                <div class="card-glow" style="background: #f1c40f;"></div>
                 <div class="card-icon" style="color:#f1c40f;"><i class="fas fa-sun"></i></div>
                 <div class="card-content"><h3>Matahari</h3><p>Pusat Tata Surya</p></div>
             </a>
             <a href="sirius/index.html" class="card" data-category="bintang">
+                <div class="card-glow" style="background: #74b9ff;"></div>
                 <div class="card-icon" style="color:#74b9ff;"><i class="fas fa-star"></i></div>
                 <div class="card-content"><h3>Sirius</h3><p>Bintang Terang Malam</p></div>
             </a>
             <a href="alphacentauri/index.html" class="card" data-category="bintang">
+                <div class="card-glow" style="background: #ff7675;"></div>
                 <div class="card-icon" style="color:#ff7675;"><i class="fas fa-star"></i></div>
                 <div class="card-content"><h3>Alpha Centauri</h3><p>Sistem Bintang Terdekat</p></div>
             </a>
             <a href="proximacentauri/index.html" class="card" data-category="bintang">
+                <div class="card-glow" style="background: #ff7675;"></div>
                 <div class="card-icon" style="color:#ff7675;"><i class="fas fa-star-half-alt"></i></div>
                 <div class="card-content"><h3>Proxima Centauri</h3><p>Tetangga Merah Kecil</p></div>
             </a>
             <a href="canopus/index.html" class="card" data-category="bintang">
+                <div class="card-glow" style="background: #ffffff;"></div>
                 <div class="card-icon" style="color:#fff;"><i class="fas fa-star"></i></div>
                 <div class="card-content"><h3>Canopus</h3><p>Terang Kedua</p></div>
             </a>
             <a href="achernar/index.html" class="card" data-category="bintang">
+                <div class="card-glow" style="background: #74b9ff;"></div>
                 <div class="card-icon" style="color:#74b9ff;"><i class="fas fa-star"></i></div>
                 <div class="card-content"><h3>Achernar</h3><p>Bintang Pipih</p></div>
             </a>
             <a href="arcturus/index.html" class="card" data-category="bintang">
+                <div class="card-glow" style="background: #e67e22;"></div>
                 <div class="card-icon" style="color:#e67e22;"><i class="fas fa-star"></i></div>
                 <div class="card-content"><h3>Arcturus</h3><p>Raksasa Oranye</p></div>
             </a>
             <a href="aldebaran/index.html" class="card" data-category="bintang">
+                <div class="card-glow" style="background: #e74c3c;"></div>
                 <div class="card-icon" style="color:#e74c3c;"><i class="fas fa-star"></i></div>
                 <div class="card-content"><h3>Aldebaran</h3><p>Mata Si Banteng</p></div>
             </a>
             <a href="rigel/index.html" class="card" data-category="bintang">
+                <div class="card-glow" style="background: #74b9ff;"></div>
                 <div class="card-icon" style="color:#74b9ff;"><i class="fas fa-star"></i></div>
                 <div class="card-content"><h3>Rigel</h3><p>Super Raksasa Biru</p></div>
             </a>
             <a href="betelgeuse/index.html" class="card" data-category="bintang">
+                <div class="card-glow" style="background: #d63031;"></div>
                 <div class="card-icon" style="color:#d63031;"><i class="fas fa-fire"></i></div>
                 <div class="card-content"><h3>Betelgeuse</h3><p>Siap Meledak</p></div>
             </a>
             <a href="vega/index.html" class="card" data-category="bintang">
+                <div class="card-glow" style="background: #81ecec;"></div>
                 <div class="card-icon" style="color:#81ecec;"><i class="fas fa-star"></i></div>
                 <div class="card-content"><h3>Vega</h3><p>Bintang Harpa</p></div>
             </a>
             <a href="capella/index.html" class="card" data-category="bintang">
+                <div class="card-glow" style="background: #ffeaa7;"></div>
                 <div class="card-icon" style="color:#ffeaa7;"><i class="fas fa-star"></i></div>
                 <div class="card-content"><h3>Capella</h3><p>Si Kambing Kecil</p></div>
             </a>
             <a href="procyon/index.html" class="card" data-category="bintang">
+                <div class="card-glow" style="background: #ffffff;"></div>
                 <div class="card-icon" style="color:#fff;"><i class="fas fa-star"></i></div>
                 <div class="card-content"><h3>Procyon</h3><p>Sebelum Anjing</p></div>
             </a>
-            <a href="#" class="card" data-category="bintang">
+            <a href="hadar/index.html" class="card" data-category="bintang">
+                <div class="card-glow" style="background: #74b9ff;"></div>
                 <div class="card-icon" style="color:#74b9ff;"><i class="fas fa-star"></i></div>
                 <div class="card-content"><h3>Hadar</h3><p>Beta Centauri</p></div>
             </a>
-            <a href="#" class="card" data-category="bintang">
+            <a href="altair/index.html" class="card" data-category="bintang">
+                <div class="card-glow" style="background: #ffffff;"></div>
                 <div class="card-icon" style="color:#fff;"><i class="fas fa-star"></i></div>
                 <div class="card-content"><h3>Altair</h3><p>Si Elang Terbang</p></div>
             </a>
-            <a href="#" class="card" data-category="bintang">
+            <a href="antares/index.html" class="card" data-category="bintang">
+                <div class="card-glow" style="background: #ff4757;"></div>
                 <div class="card-icon" style="color:#ff4757;"><i class="fas fa-star"></i></div>
                 <div class="card-content"><h3>Antares</h3><p>Jantung Kalajengking</p></div>
             </a>
             <a href="#" class="card" data-category="bintang">
+                <div class="card-glow" style="background: #ffffff;"></div>
                 <div class="card-icon" style="color:#fff;"><i class="fas fa-star"></i></div>
                 <div class="card-content"><h3>Fomalhaut</h3><p>Mulut Ikan</p></div>
             </a>
             <a href="#" class="card" data-category="bintang">
+                <div class="card-glow" style="background: #74b9ff;"></div>
                 <div class="card-icon" style="color:#74b9ff;"><i class="fas fa-star"></i></div>
                 <div class="card-content"><h3>Regulus</h3><p>Jantung Singa</p></div>
             </a>
             <a href="#" class="card" data-category="bintang">
+                <div class="card-glow" style="background: #ffffff;"></div>
                 <div class="card-icon" style="color:#fff;"><i class="fas fa-star"></i></div>
                 <div class="card-content"><h3>Deneb</h3><p>Ekor Angsa</p></div>
             </a>
             <a href="#" class="card" data-category="bintang">
+                <div class="card-glow" style="background: #74b9ff;"></div>
                 <div class="card-icon" style="color:#74b9ff;"><i class="fas fa-star"></i></div>
                 <div class="card-content"><h3>Bellatrix</h3><p>Sang Prajurit Wanita</p></div>
             </a>
             <a href="#" class="card" data-category="bintang">
+                <div class="card-glow" style="background: #0984e3;"></div>
                 <div class="card-icon" style="color:#0984e3;"><i class="fas fa-ellipsis-h"></i></div>
                 <div class="card-content"><h3>Alnitak</h3><p>Sabuk Orion 1</p></div>
             </a>
             <a href="#" class="card" data-category="bintang">
+                <div class="card-glow" style="background: #0984e3;"></div>
                 <div class="card-icon" style="color:#0984e3;"><i class="fas fa-ellipsis-h"></i></div>
                 <div class="card-content"><h3>Alnilam</h3><p>Sabuk Orion 2</p></div>
             </a>
             <a href="#" class="card" data-category="bintang">
+                <div class="card-glow" style="background: #0984e3;"></div>
                 <div class="card-icon" style="color:#0984e3;"><i class="fas fa-ellipsis-h"></i></div>
                 <div class="card-content"><h3>Mintaka</h3><p>Sabuk Orion 3</p></div>
             </a>
             <a href="#" class="card" data-category="bintang">
+                <div class="card-glow" style="background: #e67e22;"></div>
                 <div class="card-icon" style="color:#e67e22;"><i class="fas fa-star"></i></div>
                 <div class="card-content"><h3>Aljanah</h3><p>Sayap Angsa</p></div>
             </a>
             <a href="#" class="card" data-category="bintang">
+                <div class="card-glow" style="background: #e67e22;"></div>
                 <div class="card-icon" style="color:#e67e22;"><i class="fas fa-star"></i></div>
                 <div class="card-content"><h3>Suhail</h3><p>Lambda Velorum</p></div>
             </a>
             <a href="#" class="card" data-category="bintang">
+                <div class="card-glow" style="background: #ffffff;"></div>
                 <div class="card-icon" style="color:#fff;"><i class="fas fa-star-half"></i></div>
                 <div class="card-content"><h3>Mizar & Alcor</h3><p>Bintang Ganda</p></div>
             </a>
 
             <a href="merkurius/index.html" class="card" data-category="planet">
+                <div class="card-glow" style="background: #b2bec3;"></div>
                 <div class="card-icon" style="color:#b2bec3;"><i class="fas fa-circle"></i></div>
                 <div class="card-content"><h3>Merkurius</h3><p>Planet Terkecil</p></div>
             </a>
             <a href="venus/index.html" class="card" data-category="planet">
+                <div class="card-glow" style="background: #e17055;"></div>
                 <div class="card-icon" style="color:#e17055;"><i class="fas fa-circle"></i></div>
                 <div class="card-content"><h3>Venus</h3><p>Bintang Kejora</p></div>
             </a>
             <a href="bumi/index.html" class="card" data-category="planet">
+                <div class="card-glow" style="background: #2ecc71;"></div>
                 <div class="card-icon" style="color:#2ecc71;"><i class="fas fa-globe-asia"></i></div>
                 <div class="card-content"><h3>Bumi</h3><p>Rumah Kita</p></div>
             </a>
             <a href="#" class="card" data-category="planet">
+                <div class="card-glow" style="background: #c0392b;"></div>
                 <div class="card-icon" style="color:#c0392b;"><i class="fas fa-circle"></i></div>
                 <div class="card-content"><h3>Mars</h3><p>Planet Merah</p></div>
             </a>
             <a href="#" class="card" data-category="planet">
+                <div class="card-glow" style="background: #fdcb6e;"></div>
                 <div class="card-icon" style="color:#fdcb6e;"><i class="fas fa-circle"></i></div>
                 <div class="card-content"><h3>Jupiter</h3><p>Raja Planet</p></div>
             </a>
             <a href="#" class="card" data-category="planet">
+                <div class="card-glow" style="background: #e1b12c;"></div>
                 <div class="card-icon" style="color:#e1b12c;"><i class="fa-solid fa-circle-half-stroke"></i></div>
                 <div class="card-content"><h3>Saturnus</h3><p>Cincin Indah</p></div>
             </a>
             <a href="#" class="card" data-category="planet">
+                <div class="card-glow" style="background: #74b9ff;"></div>
                 <div class="card-icon" style="color:#74b9ff;"><i class="fas fa-circle"></i></div>
                 <div class="card-content"><h3>Uranus</h3><p>Raksasa Es</p></div>
             </a>
             <a href="#" class="card" data-category="planet">
+                <div class="card-glow" style="background: #0984e3;"></div>
                 <div class="card-icon" style="color:#0984e3;"><i class="fas fa-circle"></i></div>
                 <div class="card-content"><h3>Neptunus</h3><p>Si Pembuat Badai</p></div>
             </a>
 
-            <a href="orionnebula/index.html" class="card" data-category="nebula">
+            <a href="#" class="card" data-category="nebula">
+                <div class="card-glow" style="background: #a29bfe;"></div>
                 <div class="card-icon" style="color:#a29bfe;"><i class="fas fa-cloud"></i></div>
                 <div class="card-content"><h3>Nebula Orion</h3><p>Pabrik Bintang</p></div>
             </a>
             <a href="#" class="card" data-category="nebula">
+                <div class="card-glow" style="background: #fd79a8;"></div>
                 <div class="card-icon" style="color:#fd79a8;"><i class="fas fa-spider"></i></div>
                 <div class="card-content"><h3>Tarantula</h3><p>Nebula Terbesar</p></div>
             </a>
             <a href="#" class="card" data-category="nebula">
+                <div class="card-glow" style="background: #ff7675;"></div>
                 <div class="card-icon" style="color:#ff7675;"><i class="fa-solid fa-fan"></i></div>
                 <div class="card-content"><h3>Rosette</h3><p>Bunga Mawar Angkasa</p></div>
             </a>
             <a href="#" class="card" data-category="nebula">
+                <div class="card-glow" style="background: #55efc4;"></div>
                 <div class="card-icon" style="color:#55efc4;"><i class="fas fa-eye"></i></div>
                 <div class="card-content"><h3>Helix</h3><p>Mata Besar Angkasa</p></div>
             </a>
             <a href="#" class="card" data-category="nebula">
+                <div class="card-glow" style="background: #00b894;"></div>
                 <div class="card-icon" style="color:#00b894;"><i class="fas fa-eye"></i></div>
                 <div class="card-content"><h3>Cat's Eye</h3><p>Mata Kucing</p></div>
             </a>
             <a href="#" class="card" data-category="nebula">
+                <div class="card-glow" style="background: #fab1a0;"></div>
                 <div class="card-icon" style="color:#fab1a0;"><i class="fas fa-pastafarianism"></i></div>
                 <div class="card-content"><h3>Crab Nebula</h3><p>Sisa Supernova</p></div>
             </a>
             <a href="#" class="card" data-category="nebula">
+                <div class="card-glow" style="background: #d63031;"></div>
                 <div class="card-icon" style="color:#d63031;"><i class="fas fa-chess-knight"></i></div>
                 <div class="card-content"><h3>Horsehead</h3><p>Kepala Kuda</p></div>
             </a>
             <a href="nebulacarina/index.html" class="card" data-category="nebula">
-                <div class="card-icon" style="color:#ff9f43;"><i class="fa-solid fa-mountain" style="color: #FFD43B;"></i></i></div>
+                <div class="card-glow" style="background: #ff9f43;"></div>
+                <div class="card-icon" style="color:#ff9f43;"><i class="fa-solid fa-mountain" style="color: #FFD43B;"></i></div>
                 <div class="card-content"><h3>Nebula Carina</h3><p>Gunung Mistis</p></div>
             </a>
             <a href="#" class="card" data-category="nebula">
+                <div class="card-glow" style="background: #f1c40f;"></div>
                 <div class="card-icon" style="color:#f1c40f;"><i class="fas fa-feather-alt"></i></div>
                 <div class="card-content"><h3>Eagle Nebula</h3><p>Pilar Penciptaan</p></div>
             </a>
             <a href="#" class="card" data-category="nebula">
+                <div class="card-glow" style="background: #ff7675;"></div>
                 <div class="card-icon" style="color:#ff7675;"><i class="fas fa-water"></i></div>
                 <div class="card-content"><h3>Lagoon Nebula</h3><p>Laguna Angkasa</p></div>
             </a>
 
             <a href="#" class="card" data-category="gugus">
+                <div class="card-glow" style="background: #dfe6e9;"></div>
                 <div class="card-icon" style="color:#dfe6e9;"><i class="fa-solid fa-star-of-life"></i></div>
                 <div class="card-content"><h3>Omega Centauri</h3><p>Gugus Bola Raksasa</p></div>
             </a>
             <a href="pleiades/index.html" class="card" data-category="gugus">
+                <div class="card-glow" style="background: #74b9ff;"></div>
                 <div class="card-icon" style="color:#74b9ff;"><i class="fa-solid fa-star-of-life"></i></div>
                 <div class="card-content"><h3>Pleiades</h3><p>Tujuh Saudari</p></div>
             </a>
             <a href="#" class="card" data-category="gugus">
-                <div class="card-icon" style="color:#fdcb6e;"><i class="fa-solid fa-star-of-life"></i></i></div>
+                <div class="card-glow" style="background: #fdcb6e;"></div>
+                <div class="card-icon" style="color:#fdcb6e;"><i class="fa-solid fa-star-of-life"></i></div>
                 <div class="card-content"><h3>Beehive</h3><p>Gugus Sarang Lebah</p></div>
             </a>
             <a href="#" class="card" data-category="gugus">
+                <div class="card-glow" style="background: #a29bfe;"></div>
                 <div class="card-icon" style="color:#a29bfe;"><i class="fa-solid fa-star-of-life"></i></div>
                 <div class="card-content"><h3>Gugus Kupu-kupu</h3><p>Cluster M6</p></div>
             </a>
             <a href="#" class="card" data-category="gugus">
+                <div class="card-glow" style="background: #81ecec;"></div>
                 <div class="card-icon" style="color:#81ecec;"><i class="fa-solid fa-star-of-life"></i></div>
                 <div class="card-content"><h3>Gugus Ptolemy</h3><p>Cluster M7</p></div>
             </a>
             <a href="#" class="card" data-category="gugus">
-                <div class="card-icon" style="color:#ffeaa7;"><i class="fa-solid fa-star-of-life"></i><h3>Gugus Sagitarius</h3><p>Cluster M22</p></div>
+                <div class="card-glow" style="background: #ffeaa7;"></div>
+                <div class="card-icon" style="color:#ffeaa7;"><i class="fa-solid fa-star-of-life"></i></div>
+                <div class="card-content"><h3>Gugus Sagitarius</h3><p>Cluster M22</p></div>
             </a>
 
             <a href="#" class="card" data-category="satelit">
+                <div class="card-glow" style="background: #ffffff;"></div>
                 <div class="card-icon" style="color:#fff;"><i class="fas fa-moon"></i></div>
                 <div class="card-content"><h3>Bulan</h3><p>Satelit Bumi</p></div>
             </a>
             <a href="#" class="card" data-category="satelit">
+                <div class="card-glow" style="background: #b2bec3;"></div>
                 <div class="card-icon" style="color:#b2bec3;"><i class="fas fa-cookie"></i></div>
                 <div class="card-content"><h3>Phobos</h3><p>Bulan Mars</p></div>
             </a>
             <a href="#" class="card" data-category="satelit">
+                <div class="card-glow" style="background: #636e72;"></div>
                 <div class="card-icon" style="color:#636e72;"><i class="fas fa-cookie-bite"></i></div>
                 <div class="card-content"><h3>Deimos</h3><p>Adik Phobos</p></div>
             </a>
             <a href="#" class="card" data-category="satelit">
+                <div class="card-glow" style="background: #fdcb6e;"></div>
                 <div class="card-icon" style="color:#fdcb6e;"><i class="fas fa-circle"></i></div>
                 <div class="card-content"><h3>Titan</h3><p>Bulan Saturnus</p></div>
             </a>
             <a href="#" class="card" data-category="satelit">
+                <div class="card-glow" style="background: #81ecec;"></div>
                 <div class="card-icon" style="color:#81ecec;"><i class="fas fa-snowflake"></i></div>
                 <div class="card-content"><h3>Europa</h3><p>Lautan Es Jupiter</p></div>
             </a>
             <a href="#" class="card" data-category="satelit">
+                <div class="card-glow" style="background: #dfe6e9;"></div>
                 <div class="card-icon" style="color:#dfe6e9;"><i class="fas fa-circle"></i></div>
                 <div class="card-content"><h3>Ganymede</h3><p>Satelit Terbesar</p></div>
             </a>
             <a href="#" class="card" data-category="satelit">
+                <div class="card-glow" style="background: #fab1a0;"></div>
                 <div class="card-icon" style="color:#fab1a0;"><i class="fas fa-fire-alt"></i></div>
                 <div class="card-content"><h3>Io</h3><p>Dunia Vulkanik</p></div>
             </a>
             <a href="#" class="card" data-category="satelit">
+                <div class="card-glow" style="background: #636e72;"></div>
                 <div class="card-icon" style="color:#636e72;"><i class="fas fa-circle"></i></div>
                 <div class="card-content"><h3>Callisto</h3><p>Penuh Kawah</p></div>
             </a>
             <a href="#" class="card" data-category="satelit">
+                <div class="card-glow" style="background: #ffffff;"></div>
                 <div class="card-icon" style="color:#fff;"><i class="fas fa-snowflake"></i></div>
                 <div class="card-content"><h3>Enceladus</h3><p>Penyembur Es</p></div>
             </a>
 
             <a href="#" class="card" data-category="asteroid">
+                <div class="card-glow" style="background: #636e72;"></div>
                 <div class="card-icon" style="color:#636e72;"><i class="fas fa-meteor"></i></div>
                 <div class="card-content"><h3>Bennu</h3><p>Asteroid Berbahaya</p></div>
             </a>
             <a href="#" class="card" data-category="asteroid">
+                <div class="card-glow" style="background: #b2bec3;"></div>
                 <div class="card-icon" style="color:#b2bec3;"><i class="fas fa-cookie"></i></div>
                 <div class="card-content"><h3>Ceres</h3><p>Asteroid Kerdil</p></div>
             </a>
             <a href="#" class="card" data-category="asteroid">
+                <div class="card-glow" style="background: #b2bec3;"></div>
                 <div class="card-icon" style="color:#b2bec3;"><i class="fas fa-cookie-bite"></i></div>
                 <div class="card-content"><h3>Vesta</h3><p>Paling Terang</p></div>
             </a>
             <a href="#" class="card" data-category="asteroid">
+                <div class="card-glow" style="background: #74b9ff;"></div>
                 <div class="card-icon" style="color:#74b9ff;"><i class="fas fa-meteor"></i></div>
                 <div class="card-content"><h3>Pallas</h3><p>Asteroid Raksasa</p></div>
             </a>
             <a href="#" class="card" data-category="asteroid">
+                <div class="card-glow" style="background: #fdcb6e;"></div>
                 <div class="card-icon" style="color:#fdcb6e;"><i class="fas fa-meteor"></i></div>
                 <div class="card-content"><h3>Juno</h3><p>Dewi Asteroid</p></div>
             </a>
             <a href="#" class="card" data-category="asteroid">
+                <div class="card-glow" style="background: #636e72;"></div>
                 <div class="card-icon" style="color:#636e72;"><i class="fas fa-circle"></i></div>
                 <div class="card-content"><h3>Hygeia</h3><p>Kandidat Planet Kerdil</p></div>
             </a>
             <a href="#" class="card" data-category="asteroid">
+                <div class="card-glow" style="background: #e17055;"></div>
                 <div class="card-icon" style="color:#e17055;"><i class="fas fa-heart"></i></div>
                 <div class="card-content"><h3>Eros</h3><p>Asteroid Cinta</p></div>
             </a>
 
             <a href="omuamua/index.html" class="card" data-category="unik">
+                <div class="card-glow" style="background: #e17055;"></div>
                 <div class="card-icon" style="color:#e17055;"><i class="fas fa-space-shuttle"></i></div>
                 <div class="card-content"><h3>'Oumuamua</h3><p>Tamu Antar Bintang</p></div>
             </a>
             <a href="Sinyalwow/index.html" class="card" data-category="unik">
+                <div class="card-glow" style="background: #00cec9;"></div>
                 <div class="card-icon" style="color:#00cec9;"><i class="fas fa-broadcast-tower"></i></div>
                 <div class="card-content"><h3>Sinyal Wow!</h3><p>Pesan Misterius</p></div>
             </a>
             <a href="#" class="card" data-category="unik">
+                <div class="card-glow" style="background: #fd79a8;"></div>
                 <div class="card-icon" style="color:#fd79a8;"><i class="fas fa-ring"></i></div>
                 <div class="card-content"><h3>Hoag's Object</h3><p>Galaksi Cincin</p></div>
             </a>
             <a href="#" class="card" data-category="unik">
+                <div class="card-glow" style="background: #ffeaa7;"></div>
                 <div class="card-icon" style="color:#ffeaa7;"><i class="fas fa-lightbulb"></i></div>
                 <div class="card-content"><h3>Tabby's Star</h3><p>Bintang Kedip Aneh</p></div>
             </a>
             <a href="#" class="card" data-category="unik">
+                <div class="card-glow" style="background: #74b9ff;"></div>
                 <div class="card-icon" style="color:#74b9ff;"><i class="fas fa-atom"></i></div>
                 <div class="card-content"><h3>Bintang Neutron</h3><p>Super Padat</p></div>
             </a>
             <a href="#" class="card" data-category="unik">
+                <div class="card-glow" style="background: #e74c3c;"></div>
                 <div class="card-icon" style="color:#e74c3c;"><i class="fas fa-bullseye"></i></div>
                 <div class="card-content"><h3>Quasar</h3><p>Monster Terang</p></div>
             </a>
             <a href="#" class="card" data-category="unik">
+                <div class="card-glow" style="background: #a29bfe;"></div>
                 <div class="card-icon" style="color:#a29bfe;"><i class="fas fa-magnet"></i></div>
                 <div class="card-content"><h3>Magnetar</h3><p>Magnet Terkuat</p></div>
             </a>
 
-        </div>
-        
-        <a href="#" class="card hidden" data-category="berita">
-            <div class="card-icon" style="color:#ff9f43;">
-                <i class="fas fa-calendar-alt"></i>
-            </div>
-            <div class="card-content">
-                <span class="news-badge">Segera: 17 Feb 2026</span>
-                <h3>Gerhana Matahari</h3>
-                <p>Siap-siap langit akan gelap total!</p>
-            </div>
-        </a>
+            <a href="#" class="card news-card hidden" data-category="berita">
+                <div class="card-glow" style="background: #ff9f43;"></div>
+                <span class="badge upcoming">Segera: 17 Feb 2026</span>
+                <div class="card-icon" style="color:#ff9f43;"><i class="fas fa-calendar-alt"></i></div>
+                <div class="card-content">
+                    <h3>Gerhana Matahari</h3>
+                    <p>Siap-siap langit akan gelap total!</p>
+                </div>
+            </a>
 
-        <a href="#" class="card hidden" data-category="berita">
-            <div class="card-icon" style="color:#ef5777;">
-                <i class="fas fa-meteor"></i>
-            </div>
-            <div class="card-content">
-                <span class="news-badge">Sudah Lewat</span>
-                <h3>Hujan Meteor Lyrid</h3>
-                <p>Puncak aktivitas meteor tahun ini.</p>
-            </div>
-        </a>
+            <a href="#" class="card news-card hidden" data-category="berita">
+                <div class="card-glow" style="background: #ef5777;"></div>
+                <span class="badge passed">Selesai</span>
+                <div class="card-icon" style="color:#ef5777;"><i class="fas fa-meteor"></i></div>
+                <div class="card-content">
+                    <h3>Hujan Meteor Lyrid</h3>
+                    <p>Puncak aktivitas meteor tahun ini.</p>
+                </div>
+            </a>
+            
+        </div>
     </main>
 
     <footer class="footer">
@@ -412,7 +507,7 @@
             <h3>DevMula Web Services</h3>
             <a href="https://devmula.netlify.app" class="btn-promo">Hubungi Kami</a>
         </div>
-        <p class="copyright">&copy; 2024 Astro DevMula</p>
+        <p class="copyright">&copy; 2026 Astro DevMula</p>
     </footer>
 
     <script src="script.js"></script>
