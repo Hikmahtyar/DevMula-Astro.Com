@@ -3,217 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SISTEM EKSTRASURYA | DATABASE RAHASIA</title>
+    <title>Arsip Ekstrasurya | DevMula Astro</title>
     
     <link rel="stylesheet" href="exoplanet.css">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-    <div class="stars"></div>
-    <div class="twinkling"></div>
-    <div class="scanlines"></div>
-
-    <nav class="hud-nav">
+    <nav class="obs-nav">
         <div class="nav-left">
-            <a href="index.html" class="back-btn"><i class="fas fa-chevron-left"></i> KEMBALI KE BUMI</a>
+            <a href="../index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </a>
+            <div class="nav-brand"></div>
         </div>
-        <div class="nav-center">
-            <span class="system-status">SYSTEM: ONLINE</span>
-        </div>
-        <div class="nav-right">
-            <i class="fas fa-satellite-dish pulse-icon"></i>
-        </div>
+        
+        <button id="themeToggle" class="btn-theme" title="Ganti Mode">
+            <i class="fas fa-moon"></i>
+        </button>
     </nav>
 
-    <header class="hud-header">
-        <h1 class="glitch" data-text="ZONA EKSTRASURYA">ZONA EKSTRASURYA</h1>
-        <p class="subtitle">ARSIP DATA PLANET ASING [TOP SECRET]</p>
-        <div class="divider-line"></div>
+    <header class="obs-header">
+        <h1>Ensiklopedia Dunia Baru</h1>
+        <p>Katalog lengkap planet asing dengan data resmi NASA.</p>
     </header>
 
-    <main class="container">
-        
-        <div class="hud-card safe">
-            <div class="card-header">
-                <span class="code">ID: KPL-186F</span>
-                <span class="badge">SUPER-EARTH</span>
+    <section class="logic-section">
+        <div class="calc-card">
+            <div class="calc-header">
+                <i class="fas fa-rocket"></i>
+                <h3>Kalkulator Perjalanan</h3>
             </div>
-            <div class="planet-visual">
-                <img src="../img/kepler 186f.jpg" alt="Kepler">
-                <div class="scan-overlay"></div>
-            </div>
-            <div class="card-body">
-                <h3>Kepler-186f</h3>
-                <p>Sepupu Bumi yang paling mirip. Terletak di zona layak huni, memungkinkan adanya air cair.</p>
-                
-                <div class="data-grid">
-                    <div class="data-item">
-                        <small>Jarak</small>
-                        <strong>500 LY</strong>
-                    </div>
-                    <div class="data-item">
-                        <small>Gravitasi</small>
-                        <strong>1.1 G</strong>
-                    </div>
-                    <div class="data-item">
-                        <small>Suhu</small>
-                        <strong>-85°C</strong>
+            
+            <div class="calc-body">
+                <div class="input-group">
+                    <label>Destinasi Tujuan</label>
+                    <div class="custom-select-wrapper" id="planetWrapper">
+                        <div class="custom-select-trigger">
+                            <span id="planetSelectedText">Pilih Planet...</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="custom-options" id="planetOptions">
+                            </div>
                     </div>
                 </div>
 
-                <div class="meter-box">
-                    <div class="meter-label">
-                        <span>LAYAK HUNI</span>
-                        <span class="percent">88%</span>
+                <div class="input-group">
+                    <label>Moda Transportasi</label>
+                    <div class="custom-select-wrapper" id="vehicleWrapper">
+                        <div class="custom-select-trigger">
+                            <span id="vehicleSelectedText">Pilih Kendaraan...</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="custom-options">
+                            <div class="option" data-value="900">Pesawat Jet (900 km/h)</div>
+                            <div class="option" data-value="61000">Voyager 1 (61.000 km/h)</div>
+                            <div class="option" data-value="1080000000">Kecepatan Cahaya (1 Miliar km/h)</div>
+                            <div class="option" data-value="10800000000">Warp Drive Lvl 1 (10x Cahaya)</div>
+                        </div>
                     </div>
-                    <div class="progress-bar">
-                        <div class="fill green" style="width: 88%"></div>
-                    </div>
+                </div>
+
+                <button onclick="calculateTravel()" class="btn-calc">
+                    <span id="btnText">Mulai Kalkulasi</span>
+                    <div id="loader" class="loader hidden"></div>
+                </button>
+            </div>
+
+            <div id="calcResult" class="calc-result hidden">
+                <span>Estimasi Tiba:</span>
+                <h2 id="timeOutput">...</h2>
+                <div class="progress-bar-calc"><div class="fill-calc"></div></div>
+                <p id="funFact" class="fun-fact"></p>
+            </div>
+        </div>
+    </section>
+
+    <section class="control-section">
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="planetSearch" placeholder="Cari nama planet..." onkeyup="filterPlanets()">
+        </div>
+
+        <div class="filter-box">
+            <button class="cat-btn active" onclick="setCategory('bumi')">🌍 Mirip Bumi</button>
+            <button class="cat-btn" onclick="setCategory('jupiter')">🪐 Raksasa Gas</button>
+            <button class="cat-btn" onclick="setCategory('neptunus')">❄️ Neptunus</button>
+            <button class="cat-btn" onclick="setCategory('mars')">🔴 Mars</button>
+        </div>
+    </section>
+
+    <main class="container" id="planetGrid">
+        </main>
+
+    <div id="planetModal" class="modal-overlay" style="display: none;">
+    
+        <div class="modal-content">
+            <button class="btn-close" onclick="closeModal()">&times;</button>
+                
+            <div class="modal-header" id="modalHeaderBg">
+                <div class="modal-title">
+                    <span id="mType" class="badge-type">PLANET TYPE</span>
+                    <h2 id="mName">Planet Name</h2>
+                    <div id="mMethod" class="discovery-method">Metode: Transit</div>
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <h4 class="section-title"><i class="fas fa-ruler-combined"></i> Karakteristik Fisik</h4>
+                <div class="nasa-grid">
+                    <div class="nasa-stat"><label>Massa</label><div id="mMass">-</div></div>
+                    <div class="nasa-stat"><label>Radius</label><div id="mRadius">-</div></div>
+                    <div class="nasa-stat"><label>Gravitasi</label><div id="mGravity">-</div></div>
+                    <div class="nasa-stat"><label>Suhu Permukaan</label><div id="mTemp">-</div></div>
+                </div>
+
+                <h4 class="section-title"><i class="fas fa-globe"></i> Data Orbital & Bintang</h4>
+                <div class="nasa-grid">
+                    <div class="nasa-stat"><label>Periode Orbit</label><div id="mOrbit">-</div></div>
+                    <div class="nasa-stat"><label>Jarak dari Bumi</label><div id="mDist">-</div></div>
+                    <div class="nasa-stat"><label>Bintang Induk</label><div id="mStar">-</div></div>
+                    <div class="nasa-stat"><label>Tahun Penemuan</label><div id="mDisc">-</div></div>
+                </div>
+
+                <h4 class="section-title"><i class="fas fa-smog"></i> Komposisi Atmosfer</h4>
+                <div id="mAtmosBox" class="atmos-box">
+                    <span class="chem-badge">Unknown</span>
+                </div>
+
+                <h4 class="section-title"><i class="fas fa-file-alt"></i> Laporan Observasi</h4>
+                <div class="nasa-desc">
+                    <p id="mDesc">...</p>
                 </div>
             </div>
         </div>
-
-        <div class="hud-card danger">
-            <div class="card-header">
-                <span class="code">ID: HD-189</span>
-                <span class="badge warning">BAHAYA</span>
-            </div>
-            <div class="planet-visual">
-                <img src="../img/HD189733b.jpg" alt="HD 189733b">
-                <div class="scan-overlay"></div>
-            </div>
-            <div class="card-body">
-                <h3>HD 189733 b</h3>
-                <p>Neraka biru. Di sini hujan kaca cair terjadi menyamping dengan kecepatan suara.</p>
-                
-                <div class="data-grid">
-                    <div class="data-item">
-                        <small>Jarak</small>
-                        <strong>63 LY</strong>
-                    </div>
-                    <div class="data-item">
-                        <small>Angin</small>
-                        <strong>7000 km/h</strong>
-                    </div>
-                    <div class="data-item">
-                        <small>Suhu</small>
-                        <strong>1000°C</strong>
-                    </div>
+    </div> 
+    <div class="modal-body">
+                <div class="nasa-grid">
+                    <div class="nasa-stat"><label>Jarak</label><div id="mDist">0 LY</div></div>
+                    <div class="nasa-stat"><label>Massa</label><div id="mMass">0 x Bumi</div></div>
+                    <div class="nasa-stat"><label>Radius</label><div id="mRadius">0 x Bumi</div></div>
+                    <div class="nasa-stat"><label>Orbit</label><div id="mOrbit">0 Hari</div></div>
+                    <div class="nasa-stat"><label>Penemuan</label><div id="mDisc">2000</div></div>
+                    <div class="nasa-stat"><label>Potensi Huni</label><div id="mHabit">0%</div></div>
                 </div>
-
-                <div class="meter-box">
-                    <div class="meter-label">
-                        <span>LAYAK HUNI</span>
-                        <span class="percent">0%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="fill red" style="width: 2%"></div>
-                    </div>
-                </div>
+                <div class="nasa-desc"><p id="mDesc"></p></div>
             </div>
         </div>
+    </div>
 
-        <div class="hud-card rich">
-            <div class="card-header">
-                <span class="code">ID: 55-CNC</span>
-                <span class="badge">BERLIAN</span>
-            </div>
-            <div class="planet-visual">
-                <img src="../img/55 cancrie.jpg" alt="55 Cancri">
-                <div class="scan-overlay"></div>
-            </div>
-            <div class="card-body">
-                <h3>55 Cancri e</h3>
-                <p>Planet super padat yang intinya diduga terbuat dari berlian murni. Sangat panas.</p>
-                
-                <div class="data-grid">
-                    <div class="data-item">
-                        <small>Jarak</small>
-                        <strong>40 LY</strong>
-                    </div>
-                    <div class="data-item">
-                        <small>Massa</small>
-                        <strong>8x Bumi</strong>
-                    </div>
-                    <div class="data-item">
-                        <small>Suhu</small>
-                        <strong>2000°C</strong>
-                    </div>
-                </div>
-
-                <div class="meter-box">
-                    <div class="meter-label">
-                        <span>LAYAK HUNI</span>
-                        <span class="percent">5%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="fill yellow" style="width: 5%"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="hud-card safe">
-            <div class="card-header">
-                <span class="code">ID: PRX-CEN</span>
-                <span class="badge">TETANGGA</span>
-            </div>
-            <div class="planet-visual">
-                <img src="../img/proxima b.jpg" alt="Proxima B">
-                <div class="scan-overlay"></div>
-            </div>
-            <div class="card-body">
-                <h3>Proxima B</h3>
-                <p>Planet terdekat dengan kita. Mengorbit bintang merah redup di zona Goldilocks.</p>
-                
-                <div class="data-grid">
-                    <div class="data-item">
-                        <small>Jarak</small>
-                        <strong>4.2 LY</strong>
-                    </div>
-                    <div class="data-item">
-                        <small>Rotasi</small>
-                        <strong>Terkunci</strong>
-                    </div>
-                    <div class="data-item">
-                        <small>Suhu</small>
-                        <strong>-39°C</strong>
-                    </div>
-                </div>
-
-                <div class="meter-box">
-                    <div class="meter-label">
-                        <span>LAYAK HUNI</span>
-                        <span class="percent">65%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="fill green" style="width: 65%"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </main>
-
-    <footer class="hud-footer">
-        <p>DEVMULA INTERSTELLAR ARCHIVE // ENCRYPTED CONNECTION</p>
+       <footer class="obs-footer">
+        <p>&copy; 2026 DevMula Astro Research Division</p>
     </footer>
-
-    <script>
-        // Efek Hover Card (Tilt Sederhana)
-        const cards = document.querySelectorAll('.hud-card');
-        cards.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                card.style.setProperty('--x', `${x}px`);
-                card.style.setProperty('--y', `${y}px`);
-            });
-        });
-    </script>
+    <script src="exoplanet.js"></script> 
 </body>
 </html>

@@ -509,62 +509,60 @@ body.light-mode .main-title {
    TOMBOL ALIEN (VERSI TERPISAH)
    ========================================= */
 
-/* 1. Wadah Khusus Tombol Alien */
+/* =========================================
+   TOMBOL ALIEN (RE-DESIGN: CYAN MINIMALIS)
+   ========================================= */
+
+/* Wadah Penampung */
 .alien-wrapper {
     display: flex;
-    justify-content: center; /* Pasti Rata Tengah */
+    justify-content: center;
     width: 100%;
-    margin-top: 20px; /* Jarak Jauh dari Warp Drive */
+    margin-top: 15px; /* Jarak secukupnya */
     margin-bottom: 20px;
 }
 
-/* 2. Desain Tombol Alien (Neon Radar) */
+/* Desain Tombol: Cyan Glass */
 .alien-btn-solo {
     position: relative;
     display: flex; align-items: center; justify-content: center; gap: 10px;
-    padding: 12px 35px; /* Sedikit lebih lebar */
-    background: rgba(0, 255, 65, 0.05); /* Transparan Hijau */
-    border: 1px solid #00ff41; /* Hijau Neon */
-    color: #00ff41;
+    
+    /* Ukuran lebih proporsional */
+    padding: 10px 25px; 
+    
+    /* Warna: Cyan Transparan (Lebih nyatu sama ungu) */
+    background: rgba(0, 243, 255, 0.05); 
+    border: 1px solid rgba(0, 243, 255, 0.3); /* Border tipis halus */
+    color: #00f3ff; /* Teks Cyan */
+    
     border-radius: 50px;
     text-decoration: none;
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: bold;
-    letter-spacing: 1px;
-    overflow: hidden;
-    transition: 0.3s;
-    
-    /* Animasi Melayang Pelan */
-    animation: alienFloat 3s ease-in-out infinite;
+    font-family: 'Poppins', sans-serif; /* Ganti font biar lebih santai */
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
 }
 
-/* Efek Hover */
+/* Efek Hover: Jadi lebih terang dikit */
 .alien-btn-solo:hover {
-    background: #00ff41;
-    color: #000;
-    box-shadow: 0 0 25px rgba(0, 255, 65, 0.6);
-    transform: translateY(-5px) scale(1.05);
+    background: rgba(0, 243, 255, 0.15);
+    border-color: #00f3ff;
+    color: #fff;
+    box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+    transform: translateY(-2px); /* Naik sedikit aja, gak usah heboh */
 }
 
-/* 3. Animasi Radar (Ping) */
+/* Ikon Radar (Dibuat Diam & Simpel) */
 .radar-ping {
-    width: 8px; height: 8px;
-    background-color: #00ff41;
+    width: 6px; height: 6px;
+    background-color: #00f3ff;
     border-radius: 50%;
-    position: relative;
+    box-shadow: 0 0 5px #00f3ff;
 }
-.alien-btn-solo:hover .radar-ping { background-color: #000; }
 
-/* Gelombang Radar */
-.radar-ping::after {
-    content: '';
-    position: absolute; top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%; height: 100%;
-    border-radius: 50%;
-    border: 2px solid #00ff41;
-    animation: radarWave 1.5s infinite ease-out;
-}
+/* Hapus animasi gelombang yang bikin pusing */
+/* Kita buat statis saja biar bersih/sederhana */
 
 /* Keyframes Animasi */
 @keyframes radarWave {
