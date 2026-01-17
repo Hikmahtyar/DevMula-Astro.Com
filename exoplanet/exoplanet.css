@@ -185,9 +185,27 @@ body {
 .obs-footer { text-align: center; padding: 30px; color: var(--text-muted); border-top: 1px solid var(--border); }
 
 /* MOBILE RESPONSIVE */
+/* MOBILE RESPONSIVE (UPDATE: Tombol Rapi & Tengah) */
 @media (max-width: 768px) {
-    .filter-box { overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; padding-bottom: 10px; }
-    .cat-btn { white-space: nowrap; flex-shrink: 0; }
+    /* Agar tombol filter ke tengah dan turun ke bawah jika tidak muat */
+    .filter-box { 
+        display: flex;
+        flex-wrap: wrap;         /* KUNCI: Izinkan tombol turun baris */
+        justify-content: center;  /* KUNCI: Posisi rata tengah */
+        gap: 8px;                /* Jarak antar tombol lebih rapi */
+        overflow-x: visible;     /* Matikan scroll samping yang meluber */
+        padding-bottom: 10px;
+    }
+
+    .cat-btn { 
+        white-space: nowrap; 
+        flex-shrink: 0; 
+        font-size: 0.85rem;      /* Font sedikit lebih kecil agar pas */
+        padding: 8px 14px;
+        margin-bottom: 5px;      /* Jarak vertikal saat turun baris */
+    }
+
+    /* Grid Planet jadi 1 kolom di HP */
     .container { grid-template-columns: 1fr; }
 }
 
